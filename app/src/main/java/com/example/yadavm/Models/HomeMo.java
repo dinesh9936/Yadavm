@@ -5,16 +5,7 @@ public class HomeMo {
     private  String itemName;
     private  String itemPricekg;
     private  String itemPricepcs;
-
-    public HomeMo() {
-    }
-
-    public HomeMo(String itemImage, String itemName, String itemPricekg, String itemPricepcs) {
-        this.itemImage = itemImage;
-        this.itemName = itemName;
-        this.itemPricekg = itemPricekg;
-        this.itemPricepcs = itemPricepcs;
-    }
+    private String itemId;
 
     public String getItemImage() {
         return itemImage;
@@ -46,6 +37,25 @@ public class HomeMo {
 
     public void setItemPricepcs(String itemPricepcs) {
         this.itemPricepcs = itemPricepcs;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public HomeMo() {
+    }
+
+    public HomeMo(String itemImage, String itemName, String itemPricekg, String itemPricepcs, String itemId) {
+        this.itemImage = itemImage;
+        this.itemName = itemName;
+        this.itemPricekg = itemPricekg;
+        this.itemPricepcs = itemPricepcs;
+        this.itemId = itemId;
     }
 }
 

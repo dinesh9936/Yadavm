@@ -3,14 +3,7 @@ package com.example.yadavm.Models;
 public class CartMo {
     private String itemName;
     private String itemImage;
-
-    public CartMo() {
-    }
-
-    public CartMo(String itemName, String itemImage) {
-        this.itemName = itemName;
-        this.itemImage = itemImage;
-    }
+    private String itemId;
 
     public String getItemName() {
         return itemName;
@@ -26,5 +19,22 @@ public class CartMo {
 
     public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public CartMo() {
+    }
+
+    public CartMo(String itemName, String itemImage, String itemId) {
+        this.itemName = itemName;
+        this.itemImage = itemImage;
+        this.itemId = itemId;
     }
 }

@@ -17,7 +17,17 @@
     android:layout_height="match_parent"
     android:layout_below="@+id/toolbar"
     />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/text_nothing_in_cart"
+        android:layout_centerInParent="true"
+        android:textSize="20dp"
+        android:textColor="#D24C0F"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nothing in cart"/>
  <Button
+     android:visibility="gone"
      android:id="@+id/button_place"
      android:textSize="20dp"
      android:layout_marginBottom="50dp"
@@ -31,4 +41,19 @@
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:text="Place order"/>
+ <Button
+     android:visibility="gone"
+     android:id="@+id/button_go_to_shop"
+     android:textSize="20dp"
+     android:layout_marginBottom="50dp"
+     android:background="@drawable/back_button_cart"
+     android:layout_below="@+id/recycler_cart"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentRight="true"
+     android:textColor="#ffffff"
+     android:elevation="8dp"
+     android:textAllCaps="false"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Go for Shoping"/>
 </RelativeLayout>

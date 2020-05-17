@@ -7,10 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".Notification">
 <androidx.appcompat.widget.Toolbar
-    android:elevation="4dp"
+    android:id="@+id/toolbar_noti_notifi"
     app:title="Notification"
-    android:background="#FBC711"
+    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/toolbar_noti_notifi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_noti"/>
 </RelativeLayout>

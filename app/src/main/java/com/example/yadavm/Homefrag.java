@@ -1,5 +1,6 @@
 package com.example.yadavm;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,9 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.example.yadavm.Adapters.HomeAd;
 import com.example.yadavm.Models.HomeMo;
+import com.example.yadavm.Models.OrderMo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +48,8 @@ public class Homefrag extends Fragment {
     //searching_item
     private LinearLayout searchLayout;
 
+    ///private ProgressDialog pdialog;
+
     public Homefrag() {
         // Required empty public constructor
     }
@@ -54,6 +60,10 @@ public class Homefrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_homefrag, container, false);
+
+        //pdialog = new ProgressDialog(getContext());
+        //pdialog.show();
+
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
 
@@ -94,18 +104,20 @@ public class Homefrag extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mHomeList.clear();
+               //pdialog.show();
                 for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
                     HomeMo shopmodal = dataSnapshot1.getValue(HomeMo.class);
                     mHomeList.add(shopmodal);
                     homeadapter.notifyDataSetChanged();
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
     }
 
