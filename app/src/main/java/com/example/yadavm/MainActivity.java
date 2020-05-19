@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Testing for pull request.
+
         loadFragment(new Homefrag());
 
         bttmNvgtnvw = findViewById(R.id.bottom_nav_bar);
