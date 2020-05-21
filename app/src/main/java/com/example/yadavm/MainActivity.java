@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Testing for pull request.
 
+
+        // dinesh jldi bnao
+
         loadFragment(new Homefrag());
 
         bttmNvgtnvw = findViewById(R.id.bottom_nav_bar);
