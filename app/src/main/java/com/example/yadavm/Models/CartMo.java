@@ -4,6 +4,19 @@ public class CartMo {
     private String itemName;
     private String itemImage;
     private String itemId;
+    private String itemPricekg;
+    private String itemPriceprkg;
+    private String itemPricegm;
+    private String itemPricepcs;
+    private String itemPriceprpcs;
+    private String itemPricetotal;
+    private String itemQuantitykg;
+    private String itemQuantitygm;
+    private String itemQuantitypcs ;
+    private String deliveryCharge;
+
+    public CartMo() {
+    }
 
     public String getItemName() {
         return itemName;
@@ -29,12 +42,99 @@ public class CartMo {
         this.itemId = itemId;
     }
 
-    public CartMo() {
+    public String getItemPricekg() {
+        return itemPricekg;
     }
 
-    public CartMo(String itemName, String itemImage, String itemId) {
+    public void setItemPricekg(String itemPricekg) {
+        this.itemPricekg = itemPricekg;
+    }
+
+    public String getItemPriceprkg() {
+        return itemPriceprkg;
+    }
+
+    public void setItemPriceprkg(String itemPriceprkg) {
+        this.itemPriceprkg = itemPriceprkg;
+    }
+
+    public String getItemPricegm() {
+        return itemPricegm;
+    }
+
+    public void setItemPricegm(String itemPricegm) {
+        this.itemPricegm = itemPricegm;
+    }
+
+    public String getItemPricepcs() {
+        return itemPricepcs;
+    }
+
+    public void setItemPricepcs(String itemPricepcs) {
+        this.itemPricepcs = itemPricepcs;
+    }
+
+    public String getItemPriceprpcs() {
+        return itemPriceprpcs;
+    }
+
+    public void setItemPriceprpcs(String itemPriceprpcs) {
+        this.itemPriceprpcs = itemPriceprpcs;
+    }
+
+    public String getItemPricetotal() {
+        return itemPricetotal;
+    }
+
+    public void setItemPricetotal(String itemPricetotal) {
+        this.itemPricetotal = itemPricetotal;
+    }
+
+    public String getItemQuantitykg() {
+        return itemQuantitykg;
+    }
+
+    public void setItemQuantitykg(String itemQuantitykg) {
+        this.itemQuantitykg = itemQuantitykg;
+    }
+
+    public String getItemQuantitygm() {
+        return itemQuantitygm;
+    }
+
+    public void setItemQuantitygm(String itemQuantitygm) {
+        this.itemQuantitygm = itemQuantitygm;
+    }
+
+    public String getItemQuantitypcs() {
+        return itemQuantitypcs;
+    }
+
+    public void setItemQuantitypcs(String itemQuantitypcs) {
+        this.itemQuantitypcs = itemQuantitypcs;
+    }
+
+    public String getDeliveryCharge() {
+        return deliveryCharge;
+    }
+
+    public void setDeliveryCharge(String deliveryCharge) {
+        this.deliveryCharge = deliveryCharge;
+    }
+
+    public CartMo(String itemName, String itemImage, String itemId, String itemPricekg, String itemPriceprkg, String itemPricegm, String itemPricepcs, String itemPriceprpcs, String itemPricetotal, String itemQuantitykg, String itemQuantitygm, String itemQuantitypcs, String deliveryCharge) {
         this.itemName = itemName;
         this.itemImage = itemImage;
         this.itemId = itemId;
+        this.itemPricekg = itemPricekg;
+        this.itemPriceprkg = itemPriceprkg;
+        this.itemPricegm = itemPricegm;
+        this.itemPricepcs = itemPricepcs;
+        this.itemPriceprpcs = itemPriceprpcs;
+        this.itemPricetotal = itemPricetotal;
+        this.itemQuantitykg = itemQuantitykg;
+        this.itemQuantitygm = itemQuantitygm;
+        this.itemQuantitypcs = itemQuantitypcs;
+        this.deliveryCharge = deliveryCharge;
     }
 }

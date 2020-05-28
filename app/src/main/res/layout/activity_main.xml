@@ -14,6 +14,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:elevation="8dp"
         app:itemIconSize="36dp"
+        android:background="@color/cardview_light_background"
         android:layout_alignParentBottom="true"
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"

@@ -59,25 +59,29 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <LinearLayout
+                android:id="@+id/layout_kg"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageButton
+                    android:id="@+id/plus_kg_button"
                     android:layout_gravity="left|center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_add_box"
                     android:background="@android:color/transparent"/>
-                <EditText
+                <TextView
+                    android:id="@+id/text_kg"
                     android:textSize="15dp"
                     android:textAlignment="center"
                     android:layout_gravity="center"
                     android:background="@drawable/edit_text_box"
-                    android:hint="0"
                     android:layout_width="35dp"
                     android:layout_height="20dp"
                     android:text="0"/>
                 <ImageButton
+                    android:id="@+id/minus_kg_button"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_minus"
@@ -96,6 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/text_value_kg"
                     android:textColor="#000000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,16 +108,20 @@
                     android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_gm"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageButton
+                    android:id="@+id/plus_gm_button"
+
                     android:layout_gravity="center|left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_add_box"
                     android:background="@android:color/transparent"/>
-                <EditText
+                <TextView
+                    android:id="@+id/text_gm"
                     android:textSize="15dp"
                     android:textAlignment="center"
                     android:layout_gravity="center"
@@ -122,6 +131,7 @@
                     android:layout_height="20dp"
                     android:text="0"/>
                 <ImageButton
+                    android:id="@+id/minus_gm_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_minus"
@@ -141,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/text_value_gm"
                     android:textColor="#000000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -148,16 +159,20 @@
                     android:layout_gravity="center"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_pcs"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageButton
+                    android:id="@+id/plus_pcs_button"
+
                     android:layout_gravity="left|center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_add_box"
                     android:background="@android:color/transparent"/>
-                <EditText
+                <TextView
+                    android:id="@+id/text_pcs"
                     android:textSize="15dp"
                     android:textAlignment="center"
                     android:layout_gravity="center"
@@ -167,6 +182,8 @@
                     android:layout_height="20dp"
                     android:text="1"/>
                 <ImageButton
+                    android:id="@+id/minus_pcs_button"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_minus"
@@ -177,7 +194,7 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" Kg"/>
+                    android:text=" Pcs"/>
                 <TextView
                     android:layout_gravity="center"
                     android:text=" = "
@@ -186,6 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/text_value_pcs"
                     android:textColor="#000000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -205,6 +223,7 @@
                 android:layout_height="wrap_content"
                 android:text="Total"/>
             <TextView
+                android:id="@+id/text_value_total"
                 android:textColor="#e9a688"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

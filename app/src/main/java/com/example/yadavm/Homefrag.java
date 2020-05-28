@@ -1,6 +1,5 @@
 package com.example.yadavm;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,11 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import com.example.yadavm.Adapters.HomeAd;
 import com.example.yadavm.Models.HomeMo;
-import com.example.yadavm.Models.OrderMo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,24 +41,22 @@ public class Homefrag extends Fragment {
     private HomeAd homeadapter;
     private List<HomeMo> mHomeList;
 
-    //searching_item
+
     private LinearLayout searchLayout;
 
-    ///private ProgressDialog pdialog;
+
 
     public Homefrag() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_homefrag, container, false);
 
-        //pdialog = new ProgressDialog(getContext());
-        //pdialog.show();
+
 
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -72,7 +66,6 @@ public class Homefrag extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Sweets");
-        reference.keepSynced(true);
 
 
         //searching_item
@@ -80,7 +73,7 @@ public class Homefrag extends Fragment {
         searchLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),search.class);
+                Intent intent = new Intent(getActivity(), Search.class);
                 startActivity(intent);
             }
         });

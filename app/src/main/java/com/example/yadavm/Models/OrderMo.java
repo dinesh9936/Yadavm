@@ -1,60 +1,70 @@
 package com.example.yadavm.Models;
 
 public class OrderMo {
-    private String orderid;
-    private String ordertime;
-    private String orderdate;
-    private String orderstatus;
-    private String orderitems;
+private String orderId;
+private String orderDate;
+private String orderTime;
+private String orderTotal;
+private String orderStatus;
+private String orderItems;
 
-    public String getOrderid() {
-        return orderid;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrderid(String orderid) {
-        this.orderid = orderid;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public String getOrdertime() {
-        return ordertime;
+    public String getOrderDate() {
+        return orderDate;
     }
 
-    public void setOrdertime(String ordertime) {
-        this.ordertime = ordertime;
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 
-    public String getOrderdate() {
-        return orderdate;
+    public String getOrderTime() {
+        return orderTime;
     }
 
-    public void setOrderdate(String orderdate) {
-        this.orderdate = orderdate;
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
     }
 
-    public String getOrderstatus() {
-        return orderstatus;
+    public String getOrderTotal() {
+        return orderTotal;
     }
 
-    public void setOrderstatus(String orderstatus) {
-        this.orderstatus = orderstatus;
+    public void setOrderTotal(String orderTotal) {
+        this.orderTotal = orderTotal;
     }
 
-    public String getOrderitems() {
-        return orderitems;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrderitems(String orderitems) {
-        this.orderitems = orderitems;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public OrderMo(String orderid, String ordertime, String orderdate, String orderstatus, String orderitems) {
-        this.orderid = orderid;
-        this.ordertime = ordertime;
-        this.orderdate = orderdate;
-        this.orderstatus = orderstatus;
-        this.orderitems = orderitems;
+    public String getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(String orderItems) {
+        this.orderItems = orderItems;
     }
 
     public OrderMo() {
+    }
+
+    public OrderMo(String orderId, String orderDate, String orderTime, String orderTotal, String orderStatus, String orderItems) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.orderTime = orderTime;
+        this.orderTotal = orderTotal;
+        this.orderStatus = orderStatus;
+        this.orderItems = orderItems;
     }
 }

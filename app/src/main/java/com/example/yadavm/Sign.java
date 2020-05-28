@@ -37,11 +37,13 @@ public class Sign extends AppCompatActivity {
     private TextView textViewOlduser;
 
     private Button buttonSend;
-    FirebaseAuth fAuth;
+    private FirebaseAuth fAuth;
 
     private String verID;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
+
+
+    private boolean mVerificationInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,9 @@ public class Sign extends AppCompatActivity {
         setContentView(R.layout.activity_sign);
 
         fAuth = FirebaseAuth.getInstance();
+
+
+
         editTextCPassword = (EditText) findViewById(R.id.confirm_password);
         editTextPassword = (EditText) findViewById(R.id.password);
         editTextName = (EditText) findViewById(R.id.user_name);
@@ -57,25 +62,27 @@ public class Sign extends AppCompatActivity {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = editTextName.getText().toString().trim();
+               // String name = editTextName.getText().toString().trim();
                 String phone = editTextPhone.getText().toString().trim();
-                String password = editTextPassword.getText().toString().trim();
-                String cpassword = editTextCPassword.getText().toString().trim();
-
-
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password) || TextUtils.isEmpty(cpassword)) {
-                    Toast.makeText(Sign.this, "please input all entries", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (password.equals(cpassword)) {
-                        Toast.makeText(Sign.this, "matched", Toast.LENGTH_SHORT).show();
-                        //sendVerificationCode(phone);
-                        Intent i = new Intent(Sign.this,Login.class);
-                        startActivity(i);
-                    } else {
-                        Toast.makeText(Sign.this, "mismatch", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
+//                String password = editTextPassword.getText().toString().trim();
+//                String cpassword = editTextCPassword.getText().toString().trim();
+//
+                sendVerificationCodeToUser(phone);
+//
+//                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password) || TextUtils.isEmpty(cpassword)) {
+//                    Toast.makeText(Sign.this, "please input all entries", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    if (password.equals(cpassword)) {
+//                        Toast.makeText(Sign.this, "matched", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//                    } else {
+//                        Toast.makeText(Sign.this, "mismatch", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }
+                Toast.makeText(Sign.this, "clicked", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -95,14 +102,12 @@ public class Sign extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (!isChecked) {
-                    // show password
-                    //editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+
                     editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     editTextCPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
                 } else {
-                    // hide password
-                    //editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
                     editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     editTextCPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
@@ -114,5 +119,34 @@ public class Sign extends AppCompatActivity {
 
 
 
+    private void sendVerificationCodeToUser(String phoneNo) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+91" + phoneNo,        // Phone number to verify
+                60,                 // Timeout duration
+                TimeUnit.SECONDS,   // Unit of timeout
+                TaskExecutors.MAIN_THREAD,   // Activity (for callback binding)
+                mCallbacks);        // OnVerificationStateChangedCallbacks
+    }
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
+            new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+                @Override
+                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+
+                }
+
+                @Override
+                public void onVerificationFailed(@NonNull FirebaseException e) {
+
+                }
+
+                @Override
+                public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                    super.onCodeSent(s, forceResendingToken);
+                   // verificationCodeBySystem = s;
+
+                    Toast.makeText(Sign.this, "hello", Toast.LENGTH_SHORT).show();
+                }
+            };
 
 }

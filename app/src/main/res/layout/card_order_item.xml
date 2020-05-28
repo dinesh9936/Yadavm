@@ -10,7 +10,7 @@
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:padding="5dp"
         android:weightSum="2"
@@ -35,22 +35,20 @@
             android:text="15:55 12-06-2020"/>
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:weightSum="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="1"
+
+        <TextView
+            android:text="hello"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/order_items_recycler"/>
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_marginLeft="35dp"-->
-<!--            android:id="@+id/oreder_items"/>-->
+            android:layout_weight="1"
+            android:layout_marginLeft="35dp"
+            android:id="@+id/oreder_items"/>
         <LinearLayout
            android:layout_weight="1"
            android:layout_width="match_parent"
