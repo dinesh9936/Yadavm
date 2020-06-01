@@ -37,6 +37,7 @@
                         android:layout_weight="1"
                         />
                     <TextView
+                        android:id="@+id/address_profile"
                         android:textColor="@android:color/black"
                         android:layout_gravity="start"
                         android:gravity="start|center"
@@ -78,13 +79,14 @@
                         android:layout_weight="1"
                         />
                     <TextView
+                        android:id="@+id/phone_profile"
                         android:textColor="@android:color/black"
                         android:layout_gravity="start"
                         android:gravity="start|center"
                         android:textAlignment="textStart"
                         android:padding="10dp"
                         android:textSize="20dp"
-                        android:text="8840723127"
+                        android:text="+91 xxxxxxxxxx"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -141,46 +143,62 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_margin="20dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <FrameLayout
+                        android:paddingRight="20dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageButton
+                            android:background="@android:color/transparent"
+                            android:layout_gravity="right|center"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_headset"/>
+                    </FrameLayout>
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:textSize="10dp"
+                            android:textAlignment="center"
+                            android:layout_gravity="left|center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Customer Support"
+                            android:textColor="#D24C0F"/>
+                        <TextView
+                            android:id="@+id/mobile"
+                            android:layout_gravity="center|left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8840723127"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <Button
+                    android:layout_margin="20dp"
+                    android:text="Log out"
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_background"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-<LinearLayout
-    android:weightSum="2"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <FrameLayout
-        android:paddingRight="20dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageButton
-            android:background="@android:color/transparent"
-            android:layout_gravity="right|center"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_headset"/>
-    </FrameLayout>
-    <LinearLayout
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:textSize="10dp"
-            android:textAlignment="center"
-            android:layout_gravity="left|center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Customer Support"
-            android:textColor="#D24C0F"/>
-        <TextView
-            android:id="@+id/mobile"
-            android:layout_gravity="center|left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="8840723127"/>
-    </LinearLayout>
-</LinearLayout>
+
+
+
 </LinearLayout>

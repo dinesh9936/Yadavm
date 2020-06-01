@@ -64,7 +64,6 @@ public class Cartfrag extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Carts");
-        reference.keepSynced(true);
 
         recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_cat);
         recyclerView.setHasFixedSize(true);
@@ -132,4 +131,7 @@ public class Cartfrag extends Fragment {
         }
         return super.onOptionsItemSelected(item);
 
-    }    }
+    }
+
+
+}

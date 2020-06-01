@@ -25,6 +25,9 @@ import com.example.yadavm.Models.OrderAddMo;
 import com.example.yadavm.Models.OrderItemsMo;
 import com.example.yadavm.Models.OrderMo;
 import com.example.yadavm.Models.PriceMo;
+import com.example.yadavm.Models.UserMo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +58,8 @@ public class DialogPlaceButton extends DialogFragment {
     int globaltotal;
 
     String allItems;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
     @Nullable
     @Override
@@ -68,6 +73,9 @@ public class DialogPlaceButton extends DialogFragment {
 
 
        reference = FirebaseDatabase.getInstance().getReference();
+
+       firebaseAuth = FirebaseAuth.getInstance();
+       user = firebaseAuth.getCurrentUser();
 
        orderId = view.findViewById(R.id.order_id);
 
@@ -146,10 +154,13 @@ public class DialogPlaceButton extends DialogFragment {
 
            }
        });
-       reference.child("Users").addValueEventListener(new ValueEventListener() {
+       reference.child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               String orderaddress = dataSnapshot.child("orderAddress").getValue(String.class);
+               UserMo userMo = dataSnapshot.getValue(UserMo.class);
+
+
+               String orderaddress = userMo.getAddress();
                orderAddress.setText(orderaddress);
 
            }

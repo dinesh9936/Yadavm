@@ -7,6 +7,12 @@
     android:background="@drawable/back"
     android:layout_height="match_parent"
     tools:context=".Loading">
+    <ProgressBar
+        android:layout_below="@+id/text"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_dialog"/>
     <ImageButton
         android:id="@+id/icon"
         android:background="@android:color/transparent"
@@ -16,6 +22,7 @@
         android:src="@drawable/ic_restaurant_login"/>
 
     <TextView
+        android:id="@+id/text"
         android:textColor="#000000"
         android:layout_marginTop="5dp"
         android:textSize="20dp"

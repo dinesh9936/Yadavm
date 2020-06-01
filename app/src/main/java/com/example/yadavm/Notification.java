@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.yadavm.Adapters.NotiAd;
 import com.example.yadavm.Models.HomeMo;
 import com.example.yadavm.Models.NotiMo;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +38,7 @@ public class Notification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-
+        FirebaseApp.initializeApp(this);
         toolbar = (Toolbar)findViewById(R.id.toolbar_noti_notifi);
         setSupportActionBar(toolbar);
         (Notification.this).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear);
