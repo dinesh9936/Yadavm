@@ -77,7 +77,7 @@ ProgressDialog progressDialog;
 
     private Uri mItemImageUri;
 
-    ImageButton imageButtonPhone,imageButtonAddress,imageButtonSuggestion;
+    ImageButton imageButtonName,imageButtonAddress,imageButtonSuggestion;
 
     EditText editTextSuggestion;
 
@@ -137,19 +137,19 @@ LinearLayout linearLayout;
 
         imageViewUploadItem = (CircleImageView)view.findViewById(R.id.image_view_profile);
 
-//        imageButtonPhone = view.findViewById(R.id.edit_phone);
-//        imageButtonPhone.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                MainActivity activity = (MainActivity) (getContext());
-//                FragmentManager fm = activity.getSupportFragmentManager();
-//                DialogUpdate alertDialog = new DialogUpdate();
-//
-//                Bundle args = new Bundle();
-//
-//                alertDialog.show(fm, "fragment_alert");
-//            }
-//        });
+        imageButtonName = view.findViewById(R.id.edit_name);
+        imageButtonName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity) (getContext());
+                FragmentManager fm = activity.getSupportFragmentManager();
+                DialogUpdateName alertDialog = new DialogUpdateName();
+
+                Bundle args = new Bundle();
+
+                alertDialog.show(fm, "fragment_alert");
+            }
+        });
         imageButtonAddress = view.findViewById(R.id.edit_address);
         imageButtonAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,11 +169,18 @@ LinearLayout linearLayout;
             public void onClick(View v) {
 
                 String suggestion = editTextSuggestion.getText().toString().trim();
-                SuggestMo suggestMo = new SuggestMo(suggestion,user.getPhoneNumber(),name);
 
-                reference.child("Suggestions").push().setValue(suggestMo);
-                editTextSuggestion.setText(null);
-                Toast.makeText(getActivity(), "Suggestion Sent", Toast.LENGTH_SHORT).show();
+                if (suggestion.isEmpty()){
+                    Toast.makeText(getActivity(), "Please Write Your Suggest...", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    SuggestMo suggestMo = new SuggestMo(suggestion,user.getPhoneNumber(),name);
+
+                    reference.child("Suggestions").push().setValue(suggestMo);
+                    editTextSuggestion.setText(null);
+                    Toast.makeText(getActivity(), "Suggestion Sent", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

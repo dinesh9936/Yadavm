@@ -6,6 +6,7 @@ public class SuggestMo {
     private String name;
 
     public SuggestMo() {
+
     }
 
     public SuggestMo(String suggest, String phone, String name) {

@@ -74,70 +74,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
-                        android:src="@drawable/ic_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        />
-                    <TextView
-                        android:id="@+id/phone_profile"
-                        android:textColor="@android:color/black"
-                        android:layout_gravity="start"
-                        android:gravity="start|center"
-                        android:textAlignment="textStart"
-                        android:padding="10dp"
-                        android:textSize="20dp"
-                        android:text="+91 xxxxxxxxxx"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        />
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageButton
-                            android:visibility="gone"
-                            android:id="@+id/edit_phone"
-                            android:layout_gravity="right"
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:src="@drawable/ic_edit"/>
-                    </FrameLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_margin="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="4dp"
-                >
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
                         android:src="@drawable/ic_mode_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"/>
                     <EditText
+                        android:textSize="15dp"
+                        android:padding="5dp"
                         android:id="@+id/edit_suggestion"
                         android:layout_gravity="start"
-                        android:gravity="start|center"
+                        android:gravity="start"
                         android:textAlignment="textStart"
                         android:textColor="@android:color/black"
-                        android:hint="Suggestion"
+                        android:hint="Suggestion..."
                         android:layout_width="150dp"
                         android:background="@drawable/edit_text_box"
-                        android:layout_height="50dp"
+                        android:layout_height="100dp"
                         android:layout_weight="1"/>
                     <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
 
                         <ImageButton
+                            android:layout_marginLeft="20dp"
                             android:id="@+id/send_suggestion"
                             android:layout_width="25dp"
                             android:layout_height="match_parent"
