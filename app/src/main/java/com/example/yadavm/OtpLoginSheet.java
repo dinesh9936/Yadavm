@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
-public class OtpBottomSheet extends BottomSheetDialogFragment {
+public class OtpLoginSheet extends BottomSheetDialogFragment {
     private String phone,name,password,address , verificationCodeBySystem;
     private TextView textViewPhoneOtp;
     private Button buttonVerify;
@@ -44,25 +44,22 @@ public class OtpBottomSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.otp_bottom_fragment,container,false);
-         phone = getArguments().getString("phone");
-         name = getArguments().getString("name");
-         password = getArguments().getString("password");
-         address = getArguments().getString("address");
+        phone = getArguments().getString("phone");
 
-         reference = FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
         editTextOtp = view.findViewById(R.id.verification_code);
 
-         textViewPhoneOtp = view.findViewById(R.id.phone_number_otp);
-         textViewPhoneOtp.setText("+91"+phone);
+        textViewPhoneOtp = view.findViewById(R.id.phone_number_otp);
+        textViewPhoneOtp.setText("+91"+phone);
 
-         buttonVerify = view.findViewById(R.id.button_verify);
-         buttonVerify.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 String code = editTextOtp.getText().toString().trim();
-                 verifyCode(code);
-             }
-         });
+        buttonVerify = view.findViewById(R.id.button_verify);
+        buttonVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = editTextOtp.getText().toString().trim();
+                verifyCode(code);
+            }
+        });
 
 
         return view;
@@ -130,11 +127,11 @@ public class OtpBottomSheet extends BottomSheetDialogFragment {
 
                         if (task.isSuccessful()) {
 
-                            UserMo userMo = new UserMo(name,password,"+91"+phone,address,"null");
+                            //UserMo userMo = new UserMo(name,password,"+91"+phone,address,"null");
 
-                            reference.child("User").child("+91"+phone).setValue(userMo);
+                           // reference.child("User").child("+91"+phone).setValue(userMo);
 
-                            Toast.makeText(getActivity(), "Your Account has been created successfully!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Your Account has been created successfully!", Toast.LENGTH_SHORT).show();
 
                             //Perform Your required action here to either let the user sign In or do something required
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

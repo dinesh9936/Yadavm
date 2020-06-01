@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:padding="50dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_margin="20dp"
+    android:id="@+id/dialog_heading"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/app_name"
+    android:layout_centerHorizontal="true"
+    android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/dialog_edit_text"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/edit_sign_in_back"
+        android:layout_below="@+id/dialog_heading"/>
+</RelativeLayout>

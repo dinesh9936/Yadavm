@@ -1,5 +1,6 @@
 package com.example.yadavm;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,11 +18,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.yadavm.Models.SuggestMo;
 import com.example.yadavm.Models.UserMo;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCanceledListener;
@@ -59,18 +65,24 @@ DatabaseReference reference;
     private StorageReference mStorageReference;
 
 
-TextView textViewName,textViewPhone,textViewAddress;
+TextView textViewName,textViewPhone,textViewAddress,textViewAbout;
 Button buttonLogOut;
 
 String name,phone;
 ImageButton imageButtonAdd;
 
+ProgressDialog progressDialog;
+
     CircleImageView imageViewUploadItem;
 
     private Uri mItemImageUri;
 
-    FirebaseUser user;
+    ImageButton imageButtonPhone,imageButtonAddress,imageButtonSuggestion;
 
+    EditText editTextSuggestion;
+
+    FirebaseUser user;
+LinearLayout linearLayout;
     public Profile() {
         // Required empty public constructor
     }
@@ -93,13 +105,78 @@ ImageButton imageButtonAdd;
         mStorageReference = FirebaseStorage.getInstance().getReference();
 
 
+        progressDialog = new ProgressDialog(getActivity());
 
         textViewName = (TextView)view.findViewById(R.id.name_profile);
         textViewPhone = (TextView)view.findViewById(R.id.phone_profile);
+
+
+        editTextSuggestion = view.findViewById(R.id.edit_suggestion);
+
+        linearLayout = view.findViewById(R.id.support);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:9452251055"));
+                startActivity(intent);
+            }
+        });
+        textViewAbout = (TextView)view.findViewById(R.id.about);
+        textViewAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),About.class);
+                startActivity(intent);
+            }
+        });
+
+
         textViewAddress = (TextView)view.findViewById(R.id.address_profile);
         imageButtonAdd = (ImageButton)view.findViewById(R.id.add_image_button);
 
         imageViewUploadItem = (CircleImageView)view.findViewById(R.id.image_view_profile);
+
+//        imageButtonPhone = view.findViewById(R.id.edit_phone);
+//        imageButtonPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MainActivity activity = (MainActivity) (getContext());
+//                FragmentManager fm = activity.getSupportFragmentManager();
+//                DialogUpdate alertDialog = new DialogUpdate();
+//
+//                Bundle args = new Bundle();
+//
+//                alertDialog.show(fm, "fragment_alert");
+//            }
+//        });
+        imageButtonAddress = view.findViewById(R.id.edit_address);
+        imageButtonAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity) (getContext());
+                FragmentManager fm = activity.getSupportFragmentManager();
+                DialogUpdate alertDialog = new DialogUpdate();
+
+                Bundle args = new Bundle();
+
+                alertDialog.show(fm, "fragment_alert");
+            }
+        });
+        imageButtonSuggestion = view.findViewById(R.id.send_suggestion);
+        imageButtonSuggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String suggestion = editTextSuggestion.getText().toString().trim();
+                SuggestMo suggestMo = new SuggestMo(suggestion,user.getPhoneNumber(),name);
+
+                reference.child("Suggestions").push().setValue(suggestMo);
+                editTextSuggestion.setText(null);
+                Toast.makeText(getActivity(), "Suggestion Sent", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         imageButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,13 +234,22 @@ ImageButton imageButtonAdd;
            reference.child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   UserMo userMo = dataSnapshot.getValue(UserMo.class);
-                   name = userMo.getName();
-                   phone = userMo.getPhone();
-                   textViewName.setText(name);
-                   textViewPhone.setText(phone);
-                   textViewAddress.setText(userMo.getAddress());
-                   
+                   if (dataSnapshot.exists()){
+                       UserMo userMo = dataSnapshot.getValue(UserMo.class);
+                       name = userMo.getName();
+                       phone = userMo.getPhone();
+                       textViewName.setText(name);
+                       textViewPhone.setText(phone);
+                       textViewAddress.setText(userMo.getAddress());
+
+                       String image = userMo.getProfilepic();
+                       if (image != null){
+                           Glide.with(getContext())
+                                   .load(image)
+                                   .into(imageViewUploadItem);
+                       }
+                   }
+
                }
 
                @Override
@@ -197,10 +283,19 @@ ImageButton imageButtonAdd;
                             public void onSuccess(Uri uri) {
 
                                 reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri.toString());
+                                Glide.with(getContext())
+                                        .load(uri.toString())
+                                        .into(imageViewUploadItem);
 
                                // Toast.makeText(getActivity(), uri.toString(), Toast.LENGTH_SHORT).show();
                             }
                         });
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        progressDialog.setMessage((int) progress + "");
                     }
                 })
                         .addOnCanceledListener(new OnCanceledListener() {

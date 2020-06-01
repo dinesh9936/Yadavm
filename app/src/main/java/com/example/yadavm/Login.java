@@ -66,9 +66,16 @@ FirebaseAuth firebaseAuth;
                                             String phonefire = userMo.getPhone();
                                             String passwordfire = userMo.getPassword();
                                             if (phonefire.equals("+91"+phone)&&passwordfire.equals(password)){
-                                                Intent i = new Intent(Login.this,MainActivity.class);
-                                                startActivity(i);
-                                                finish();
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("phone", phone);
+                                                
+                                                OtpLoginSheet otpBottomSheet = new OtpLoginSheet();
+                                                otpBottomSheet.setArguments(bundle);
+                                                otpBottomSheet.show(getSupportFragmentManager(),"Hello");
+
+//                                                Intent i = new Intent(Login.this,MainActivity.class);
+//                                                startActivity(i);
+//                                                finish();
                                             }
                                             else {
                                                 Toast.makeText(Login.this, "Plz Enter conrrect password", Toast.LENGTH_SHORT).show();
