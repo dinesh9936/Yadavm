@@ -226,7 +226,6 @@ LinearLayout linearLayout;
             Intent intent = new Intent(getActivity(),Notification.class);
 
             startActivity(intent );
-            getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
 
