@@ -68,14 +68,14 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
                         .setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String itemLabel = String.valueOf(mHomeList.get(position));
-                                mHomeList.remove(position);
+                                String itemLabel = String.valueOf(mHomeList.get(holder.getAdapterPosition()));
+                                mHomeList.remove(holder.getAdapterPosition());
 
                                 FirebaseDatabase.getInstance().getReference().child("Carts")
                                         .child(homemodel.getItemId())
                                         .removeValue();
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position,mHomeList.size());
+                                //notifyItemRemoved(position);
+                                //notifyItemRangeChanged(position,mHomeList.size());
                                 Toast.makeText(mContext, itemLabel, Toast.LENGTH_SHORT).show();
                             }
                         })

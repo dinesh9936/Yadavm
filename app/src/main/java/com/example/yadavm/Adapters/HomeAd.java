@@ -65,7 +65,7 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
 
         }
         else if (homemodel.getItemPricepcs().equals("0")){
-holder.itempricepcs.setVisibility(View.GONE);
+            holder.itempricepcs.setVisibility(View.GONE);
             holder.itempricekg.setText("Rs."+homemodel.getItemPricekg()+"/"+"Kg");
 
         }
@@ -99,37 +99,7 @@ holder.itempricepcs.setVisibility(View.GONE);
                 alertDialog.show(fm, "fragment_alert");
 
 
-//                Button  buttonCart = dialog.findViewById(R.id.add_to_cart_button);
-//                buttonCart.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        progressDialog.show();
-//                        CartMo cartMo = new CartMo();
-//                        Random rnd = new Random();
-//                        int n = 100000 + rnd.nextInt(900000);
-//                        cartMo.setItemName(homemodel.getItemName());
-//                        cartMo.setItemId(String.valueOf(n));
-//                        cartMo.setItemImage(homemodel.getItemImage());
-//                        FirebaseDatabase.getInstance().getReference().child("Carts")
-//                                .child(String.valueOf(n))
-//                                .setValue(cartMo)
-//
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        progressDialog.dismiss();
-//                                        dialog.dismiss();
-//                                    }
-//                                });
-//
-//                    }
-//                });
-//
-//                TextView textViewgmValue = dialog.findViewById(R.id.text_gm_value);
-//                TextView textViewpcsValue = dialog.findViewById(R.id.text_pcs_value);
-//
-//
-//                dialog.show();
+
             }
         });
 

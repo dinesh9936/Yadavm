@@ -1,7 +1,9 @@
 package com.example.yadavm;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,6 +51,9 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
@@ -81,6 +87,7 @@ ProgressDialog progressDialog;
 
     EditText editTextSuggestion;
 
+    Context context;
     FirebaseUser user;
 LinearLayout linearLayout;
     public Profile() {
@@ -109,6 +116,7 @@ LinearLayout linearLayout;
 
         textViewName = (TextView)view.findViewById(R.id.name_profile);
         textViewPhone = (TextView)view.findViewById(R.id.phone_profile);
+
 
 
         editTextSuggestion = view.findViewById(R.id.edit_suggestion);
@@ -276,40 +284,52 @@ LinearLayout linearLayout;
             if (resultCode == RESULT_OK) {
                 mItemImageUri = result.getUri();
                 //Toast.makeText(getContext(), mItemImageUri.toString(), Toast.LENGTH_SHORT).show();
+
                 imageViewUploadItem.setImageURI(mItemImageUri);
-                mStorageReference.child("User").child(user.getPhoneNumber()).putFile(mItemImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getApplicationContext().getContentResolver(),mItemImageUri);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,0,baos);
+                    byte [] datai = baos.toByteArray();
+                    mStorageReference.child("User").child(user.getPhoneNumber()).putBytes(datai).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
 //                        String uri = String.valueOf(task.getResult().getMetadata().getReference());
 //                        reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri);
 
-                        mStorageReference.child("User").child(user.getPhoneNumber()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
+                            mStorageReference.child("User").child(user.getPhoneNumber()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
 
-                                reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri.toString());
-                                Glide.with(getContext())
-                                        .load(uri.toString())
-                                        .into(imageViewUploadItem);
+                                    reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri.toString());
+                                    Glide.with(getContext())
+                                            .load(uri.toString())
+                                            .into(imageViewUploadItem);
 
-                               // Toast.makeText(getActivity(), uri.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        progressDialog.setMessage((int) progress + "");
-                    }
-                })
-                        .addOnCanceledListener(new OnCanceledListener() {
-                            @Override
-                            public void onCanceled() {
-                                Toast.makeText(getContext(), "Not Success", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                    // Toast.makeText(getActivity(), uri.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                            progressDialog.setMessage((int) progress + "");
+                        }
+                    })
+                            .addOnCanceledListener(new OnCanceledListener() {
+                                @Override
+                                public void onCanceled() {
+                                    Toast.makeText(getContext(), "Not Success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();

@@ -83,6 +83,7 @@ public class Homefrag extends Fragment {
         mHomeList = new ArrayList<>();
         homeadapter = new HomeAd(getContext(),mHomeList);
         recyclerView.setAdapter(homeadapter);
+
         readPost();
         return view;
     }
@@ -102,6 +103,7 @@ public class Homefrag extends Fragment {
                     HomeMo shopmodal = dataSnapshot1.getValue(HomeMo.class);
                     mHomeList.add(shopmodal);
                     homeadapter.notifyDataSetChanged();
+
                 }
 
             }
