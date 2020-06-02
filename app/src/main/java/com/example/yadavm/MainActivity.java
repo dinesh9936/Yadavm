@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         FirebaseApp.initializeApp(this);
         // Testing for pull request.
 
+
+        // dinesh jldi bnao ram ram
+
         loadFragment(new Homefrag());
 
         bttmNvgtnvw = findViewById(R.id.bottom_nav_bar);
