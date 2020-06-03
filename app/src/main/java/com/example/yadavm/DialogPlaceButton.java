@@ -99,10 +99,9 @@ public class DialogPlaceButton extends DialogFragment {
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-       cartMoList = new ArrayList<>();
-       cartPlaceButtonAd = new CartPlaceButtonAd(cartMoList);
+//       cartMoList = new ArrayList<>();
+//       cartPlaceButtonAd = new CartPlaceButtonAd(cartMoList);
 
-       recyclerView.setAdapter(cartPlaceButtonAd);
         readPost();
        buttonConfirm = view.findViewById(R.id.button_confirm_plce);
        buttonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -218,14 +217,22 @@ public class DialogPlaceButton extends DialogFragment {
         reference.child("Carts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //pdialog.show();
-                for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                    CartMo shopmodal = dataSnapshot1.getValue(CartMo.class);
-                    cartMoList.add(shopmodal);
-                    cartPlaceButtonAd.notifyDataSetChanged();
+               if (isAdded()){
+                   if (dataSnapshot.exists()){
+                       cartMoList = new ArrayList<>();
+                       for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+
+                           cartMoList.add(dataSnapshot1.getValue(CartMo.class));
 
 
-                }
+
+                       }
+                       cartPlaceButtonAd = new CartPlaceButtonAd(cartMoList);
+                       recyclerView.setAdapter(cartPlaceButtonAd);
+
+                   }
+               }
+
 
             }
 

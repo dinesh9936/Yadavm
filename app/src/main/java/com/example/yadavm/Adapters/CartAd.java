@@ -34,6 +34,8 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
         this.mContext = mContext;
         this.mHomeList = mHomeList;
 
+        notifyDataSetChanged();
+
     }
 
     @NonNull
@@ -50,7 +52,8 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CartAd.VieHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull  final CartAd.VieHolder holder,  final int position) {
+
 
        final CartMo homemodel = mHomeList.get(position);
 
@@ -74,8 +77,9 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
                                 FirebaseDatabase.getInstance().getReference().child("Carts")
                                         .child(homemodel.getItemId())
                                         .removeValue();
-                                //notifyItemRemoved(position);
-                                //notifyItemRangeChanged(position,mHomeList.size());
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                notifyItemRangeChanged(holder.getAdapterPosition(),getItemCount());
+
                                 Toast.makeText(mContext, itemLabel, Toast.LENGTH_SHORT).show();
                             }
                         })

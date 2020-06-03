@@ -43,20 +43,23 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeAd.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view  = LayoutInflater.from(mContext).inflate(R.layout.card_home_item,parent,false);
+        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_home_item,parent,false);
 
-        progressDialog = new ProgressDialog(mContext);
-        return new  HomeAd.ViewHolder(view);
+
+        return new  ViewHolder(view);
 
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull  HomeAd.ViewHolder holder, int position) {
 
         final HomeMo homemodel = mHomeList.get(position);
+
+ 
+
 
         holder.itemname.setText(homemodel.getItemName());
         if (homemodel.getItemPricekg().equals("0")){
@@ -129,7 +132,7 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
             itempricepcs = itemView.findViewById(R.id.item_price_pcs);
             itemimage = itemView.findViewById(R.id.item_image);
 
-            addButton = itemView.findViewById(R.id.add_butto);
+            addButton = itemView.findViewById(R.id.add_button);
 
 
         }

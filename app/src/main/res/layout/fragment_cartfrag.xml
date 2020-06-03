@@ -12,9 +12,12 @@
       />
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_cat"
+    android:nestedScrollingEnabled="false"
     android:elevation="0dp"
+    tools:listitem="@layout/card_cart_itme"
+    android:overScrollMode="never"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_below="@+id/toolbar"
     />
     <TextView

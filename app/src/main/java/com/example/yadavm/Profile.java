@@ -248,7 +248,7 @@ LinearLayout linearLayout;
            reference.child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   if (dataSnapshot.exists()){
+                   if (isAdded()){
                        UserMo userMo = dataSnapshot.getValue(UserMo.class);
                        name = userMo.getName();
                        phone = userMo.getPhone();
@@ -290,14 +290,14 @@ LinearLayout linearLayout;
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getApplicationContext().getContentResolver(),mItemImageUri);
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                    bitmap.compress(Bitmap.CompressFormat.JPEG,0,baos);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,25,baos);
                     byte [] datai = baos.toByteArray();
                     mStorageReference.child("User").child(user.getPhoneNumber()).putBytes(datai).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
 //                        String uri = String.valueOf(task.getResult().getMetadata().getReference());
-//                        reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri);
+//              Imag          reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri);
 
                             mStorageReference.child("User").child(user.getPhoneNumber()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
@@ -307,6 +307,7 @@ LinearLayout linearLayout;
                                     Glide.with(getContext())
                                             .load(uri.toString())
                                             .into(imageViewUploadItem);
+                                    progressDialog.dismiss();
 
                                     // Toast.makeText(getActivity(), uri.toString(), Toast.LENGTH_SHORT).show();
                                 }
@@ -316,7 +317,8 @@ LinearLayout linearLayout;
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                            progressDialog.setMessage((int) progress + "");
+                            progressDialog.setMessage((int) progress + "% Loaded...");
+                            progressDialog.show();
                         }
                     })
                             .addOnCanceledListener(new OnCanceledListener() {

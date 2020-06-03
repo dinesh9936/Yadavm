@@ -56,42 +56,22 @@ public class DialogDetailsButton extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_cart_place_button,container,false);
 
-
-
-
-
-
-
         reference = FirebaseDatabase.getInstance().getReference();
-
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-
         orderId = view.findViewById(R.id.order_id);
-
         Random rnd = new Random();
         orderidint = 100000 + rnd.nextInt(900000);
-
         orderId.setText(String.valueOf("ORDER ID"+orderidint));
-
-
         orderAddress = view.findViewById(R.id.text_address);
-
         textTotal = view.findViewById(R.id.text_tota);
-
         deliveryChargeText = view.findViewById(R.id.text_delivery);
-
         textViewGlobaltotal = view.findViewById(R.id.global_total_text);
-
-
-
         recyclerView = view.findViewById(R.id.recycler_dialog_order);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         cartMoList = new ArrayList<>();
         cartPlaceButtonAd = new CartPlaceButtonAd(cartMoList);
-
         recyclerView.setAdapter(cartPlaceButtonAd);
         readPost();
         buttonConfirm = view.findViewById(R.id.button_confirm_plce);

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
-        // Testing for pull request.
+
 
         loadFragment(new Homefrag());
 

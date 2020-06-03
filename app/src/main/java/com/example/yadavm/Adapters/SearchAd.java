@@ -105,7 +105,7 @@ Context context;
 
         itemimage = itemView.findViewById(R.id.item_image);
 
-        addButton = itemView.findViewById(R.id.add_butto);
+        addButton = itemView.findViewById(R.id.add_button);
 
         }
 }
