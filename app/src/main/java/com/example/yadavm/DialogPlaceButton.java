@@ -61,6 +61,7 @@ public class DialogPlaceButton extends DialogFragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -124,9 +125,9 @@ public class DialogPlaceButton extends DialogFragment {
                orderMo.setOrderTime(dateFormattime.format(new Date()));
                orderMo.setOrderDate(dateFormatdate.format(new Date()));
 
-               reference.child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
+               reference.child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
 
-               reference.child("Carts").removeValue();
+               reference.child(user.getPhoneNumber()).child("Carts").removeValue();
 
 
                getDialog().dismiss();
@@ -134,7 +135,7 @@ public class DialogPlaceButton extends DialogFragment {
        });
 
 
-       reference.child("Carts").addValueEventListener(new ValueEventListener() {
+       reference.child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                String items="";
@@ -153,7 +154,7 @@ public class DialogPlaceButton extends DialogFragment {
 
            }
        });
-       reference.child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
+       reference.child(user.getPhoneNumber()).child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                UserMo userMo = dataSnapshot.getValue(UserMo.class);
@@ -169,7 +170,7 @@ public class DialogPlaceButton extends DialogFragment {
 
            }
        });
-        reference.child("Carts").addValueEventListener(new ValueEventListener() {
+        reference.child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int sum = 0;
@@ -212,9 +213,10 @@ public class DialogPlaceButton extends DialogFragment {
 
 
 
+
     private void readPost(){
         reference.keepSynced(true);
-        reference.child("Carts").addValueEventListener(new ValueEventListener() {
+        reference.child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if (isAdded()){
@@ -247,6 +249,5 @@ public class DialogPlaceButton extends DialogFragment {
 
 
     }
-
 
 }

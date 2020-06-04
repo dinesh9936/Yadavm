@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.example.yadavm.Adapters.HomeAd;
 import com.example.yadavm.Adapters.OrderAd;
 import com.example.yadavm.Models.OrderMo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +44,8 @@ public class Ordersfrag extends Fragment {
 
     private TextView textViewnothing;
 
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     public Ordersfrag() {
 
     }
@@ -59,8 +63,11 @@ public class Ordersfrag extends Fragment {
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("My Orders");
+        reference = database.getReference().child("My Orders").child(user.getPhoneNumber());
+
 
 
 

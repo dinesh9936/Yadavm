@@ -85,11 +85,11 @@ public class Cartfrag extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (isAdded()) {
                     if (dataSnapshot.exists()) {
-//                        if (dataSnapshot.hasChildren()) {
-//                            buttonPlace.setVisibility(View.VISIBLE);
-//                        } else {
-//                            textViewNothing.setVisibility(View.VISIBLE);
-//                        }
+                        if (dataSnapshot.hasChildren()) {
+                            buttonPlace.setVisibility(View.VISIBLE);
+                        } else {
+                            textViewNothing.setVisibility(View.VISIBLE);
+                        }
 
                         mCartMoList = new ArrayList<>();
 
