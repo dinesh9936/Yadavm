@@ -57,6 +57,7 @@ FirebaseUser user;
         dialog = new ProgressDialog(getActivity());
 
 
+        firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database =FirebaseDatabase.getInstance();
         reference = database.getReference();
@@ -217,7 +218,7 @@ buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
                 cartMo.setItemQuantitypcs(textViewpcs.getText().toString().trim());
 
                 dialog.show();
-                reference.child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo)
+                reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

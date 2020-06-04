@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.example.yadavm.Adapters.CartAd;
 import com.example.yadavm.Models.CartMo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +41,8 @@ public class Cartfrag extends Fragment {
     private TextView textViewNothing;
     private Context mContext;
 
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
 
     public Cartfrag() {
@@ -53,10 +57,13 @@ public class Cartfrag extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("Carts");
+        reference = database.getReference().child("User").child(user.getPhoneNumber()).child("Carts");
         recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_cat);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

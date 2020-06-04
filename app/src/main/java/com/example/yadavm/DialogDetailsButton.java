@@ -95,9 +95,9 @@ public class DialogDetailsButton extends DialogFragment {
                 orderMo.setOrderTime(dateFormattime.format(new Date()));
                 orderMo.setOrderDate(dateFormatdate.format(new Date()));
 
-                reference.child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
+                reference.child("User").child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
 
-                reference.child(user.getPhoneNumber()).child("Carts").removeValue();
+                reference.child("User").child(user.getPhoneNumber()).child("Carts").removeValue();
 
 
                 getDialog().dismiss();
@@ -105,7 +105,7 @@ public class DialogDetailsButton extends DialogFragment {
         });
 
 
-        reference.child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
+        reference.child("User").child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String items="";
@@ -185,7 +185,7 @@ public class DialogDetailsButton extends DialogFragment {
 
     private void readPost(){
         reference.keepSynced(true);
-        reference.child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
+        reference.child("User").child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //pdialog.show();

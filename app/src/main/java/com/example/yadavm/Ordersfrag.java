@@ -66,7 +66,7 @@ public class Ordersfrag extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("My Orders").child(user.getPhoneNumber());
+        reference = database.getReference().child("User").child(user.getPhoneNumber()).child("My Orders");
 
 
 
