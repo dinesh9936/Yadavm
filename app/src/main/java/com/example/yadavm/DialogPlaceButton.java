@@ -101,8 +101,7 @@ public class DialogPlaceButton extends DialogFragment {
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//       cartMoList = new ArrayList<>();
-//       cartPlaceButtonAd = new CartPlaceButtonAd(cartMoList);
+
 
         readPost();
        buttonConfirm = view.findViewById(R.id.button_confirm_plce);

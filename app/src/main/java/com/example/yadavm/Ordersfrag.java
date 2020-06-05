@@ -2,6 +2,13 @@ package com.example.yadavm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -9,14 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.example.yadavm.Adapters.OrderAd;
 import com.example.yadavm.Models.OrderMo;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +37,7 @@ public class Ordersfrag extends Fragment {
 
     private OrderAd orderAd;
     private List<OrderMo> orderMos;
-
+    RecyclerView recyclerView;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -65,21 +64,13 @@ public class Ordersfrag extends Fragment {
         reference = database.getReference().child("User").child(Objects.requireNonNull(user.getPhoneNumber())).child("My Orders");
 
 
-
-
-
-
-        //textViewnothing = (TextView)view.findViewById(R.id.text_nothing_in_order);
-
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_order);
-
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_order);
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         orderMos = new ArrayList<>();
 
-        orderAd = new OrderAd(getContext(),orderMos);
-        recyclerView.setAdapter(orderAd);
+
 
 
         readPost();
@@ -95,14 +86,21 @@ public class Ordersfrag extends Fragment {
         reference.orderByChild("orderStatus").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (isAdded()){
+                    if (dataSnapshot.exists()){
+                        orderMos = new ArrayList<>();
 
-                    orderMos.clear();
-                    for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                        OrderMo shopmodal = dataSnapshot1.getValue(OrderMo.class);
-                        orderMos.add(shopmodal);
-orderAd.notifyDataSetChanged();
+                        for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                            orderMos.add(dataSnapshot1.getValue(OrderMo.class));
 
+
+                        }
+                        orderAd = new OrderAd(getContext(),orderMos);
+                        recyclerView.setAdapter(orderAd);
+                    }
                 }
+
+
 
             }
 

@@ -255,10 +255,7 @@ LinearLayout linearLayout;
                                     .load(image)
                                     .into(imageViewUploadItem);
                         }
-                        else if (image.isEmpty()){
-                            imageViewUploadItem.setImageResource(R.drawable.ic_person_white);
-                            imageViewUploadItem.setBackgroundResource(R.color.colorPrimary);
-                        }
+
                     }
 
                 }
