@@ -1,5 +1,5 @@
 package com.example.yadavm;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yadavm.Adapters.CartAd;
 import com.example.yadavm.Models.CartMo;
@@ -28,10 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Cartfrag extends Fragment {
-    private Toolbar toolbar;
     FirebaseDatabase database;
     DatabaseReference reference;
     private RecyclerView recyclerView;
@@ -39,7 +40,7 @@ public class Cartfrag extends Fragment {
     private List<CartMo> mCartMoList;
     private Button buttonPlace;
     private TextView textViewNothing;
-    private Context mContext;
+
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -54,16 +55,16 @@ public class Cartfrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cartfrag,container,false);
 
-        toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("");
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("User").child(user.getPhoneNumber()).child("Carts");
+        reference = database.getReference().child("User").child(Objects.requireNonNull(user.getPhoneNumber())).child("Carts");
         recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_cat);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -75,6 +76,7 @@ public class Cartfrag extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 DialogPlaceButton dialogPlaceButton = new DialogPlaceButton();
+                assert fm != null;
                 dialogPlaceButton.show(fm,"Hello");
             }
         });
@@ -82,7 +84,7 @@ public class Cartfrag extends Fragment {
         return view;
     }
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_toolbar,menu);
     }
@@ -110,6 +112,7 @@ public class Cartfrag extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -151,22 +152,19 @@ public class DialogPlaceButton extends DialogFragment {
 
            @Override
            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+               Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
            }
        });
        reference.child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                UserMo userMo = dataSnapshot.getValue(UserMo.class);
-
-
                String orderaddress = userMo.getAddress();
                orderAddress.setText(orderaddress);
-
            }
-
            @Override
            public void onCancelled(@NonNull DatabaseError databaseError) {
+               Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
 
            }
        });
@@ -204,6 +202,7 @@ public class DialogPlaceButton extends DialogFragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -240,6 +239,7 @@ public class DialogPlaceButton extends DialogFragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
 
             }
 
