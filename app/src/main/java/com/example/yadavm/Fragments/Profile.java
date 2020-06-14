@@ -119,14 +119,14 @@ long timestamp;
                 startActivity(intent);
             }
         });
-        textViewAbout = (TextView)view.findViewById(R.id.about);
-        textViewAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), About.class);
-                startActivity(intent);
-            }
-        });
+//        textViewAbout = (TextView)view.findViewById(R.id.about);
+//        textViewAbout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), About.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         textViewAddress = (TextView)view.findViewById(R.id.address_profile);

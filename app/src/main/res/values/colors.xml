@@ -3,6 +3,6 @@
     <color name="colorPrimary">#FBC711</color>
     <color name="colorPrimaryDark">#E8BA19</color>
     <color name="colorAccent">#D24C0F</color>
-    <color name="waiting">#acacac</color>
+    <color name="waiting">@android:color/darker_gray</color>
 
 </resources>

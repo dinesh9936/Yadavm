@@ -132,9 +132,6 @@ public class OrderAd extends RecyclerView.Adapter<OrderAd.MyViewHolder> {
         else if (sts.equals("0")){
             holder.imageViewStatus.setImageResource(R.drawable.ic_waiting);
             holder.textViewStatus.setText("Waiting");
-            holder.textViewStatus.setTextColor(R.color.waiting);
-
-
         }
         else if (sts.equals("2")){
             holder.imageViewStatus.setImageResource(R.drawable.ic_order_delivered);

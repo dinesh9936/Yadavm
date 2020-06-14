@@ -81,6 +81,7 @@ pricepcsint = Integer.parseInt(pricepcs);
 
 
 buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
+//buttonBuyNow = view.findViewById(R.id.buy_now_button);
 
 
 
@@ -234,14 +235,11 @@ buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
 
                    loading.show(getChildFragmentManager(),"Loading");
 
-                   reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo)
-                           .addOnCompleteListener(new OnCompleteListener<Void>() {
-                               @Override
-                               public void onComplete(@NonNull Task<Void> task) {
+                   reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo);
+
 
                                    loading.dismiss();
-                               }
-                           });
+
 
 
                    dismiss();
@@ -250,6 +248,9 @@ buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
 
             }
         });
+
+
+
         return view;
     }
 

@@ -81,7 +81,7 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
                 new AlertDialog.Builder(mContext)
                         .setTitle("Delete Item")
                         .setMessage("Do you really want to remove this item?")
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIcon(R.drawable.ic_delete)
                         .setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -95,6 +95,7 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
                             }
                         })
                         .setNegativeButton(android.R.string.no,null)
+                        .setCancelable(false)
                         .show();
 
 

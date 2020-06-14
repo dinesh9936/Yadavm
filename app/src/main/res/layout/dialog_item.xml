@@ -37,203 +37,247 @@
             android:textSize="15dp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:weightSum="3">
 
             <LinearLayout
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:id="@+id/layout_kg"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/plus_button_kg"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_add_box" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_kg"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    <ImageButton
+                        android:id="@+id/plus_button_kg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_add_box" />
+
+                    <TextView
+                        android:id="@+id/text_kg"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/edit_text_box"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/minus_button_kg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_minus" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/edit_text_box"
-                    android:gravity="center"
-                    android:text="0" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/minus_button_kg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_minus" />
+                    <TextView
+                        android:id="@+id/text_kg_lebel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kg" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" = ₹"/>
+                    <TextView
+                        android:id="@+id/text_kg_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
 
-                <TextView
-                    android:id="@+id/text_kg_lebel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="Kg" />
-                <TextView
-                    android:layout_margin="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" = Rs."/>
-                <TextView
-                    android:id="@+id/text_kg_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="0" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/layout_gm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/plus_button_gm"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_add_box" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_gm"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    <ImageButton
+                        android:id="@+id/plus_button_gm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_add_box" />
+
+                    <TextView
+                        android:id="@+id/text_gm"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/edit_text_box"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/minus_button_gm"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_minus" />
+
+                </LinearLayout>
+                <LinearLayout
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/edit_text_box"
-                    android:gravity="center"
-                    android:text="0" />
-
-                <ImageButton
-                    android:id="@+id/minus_button_gm"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_minus" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_gm_lebel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
 
-                    android:text="x100 Gm" />
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" = Rs."/>
-                <TextView
-                    android:maxLines="1"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:id="@+id/text_gm_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/text_gm_lebel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-                    android:text="0" />
+                        android:text="x100 Gm" />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" = ₹"/>
+                    <TextView
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:id="@+id/text_gm_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="0" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:id="@+id/layout_pcs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/layout_pcs"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/plus_button_pcs"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_add_box" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_pcs"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    <ImageButton
+                        android:id="@+id/plus_button_pcs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_add_box" />
+
+                    <TextView
+                        android:id="@+id/text_pcs"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/edit_text_box"
+                        android:gravity="center"
+                        android:text="0" />
+
+                    <ImageButton
+                        android:id="@+id/minus_button_pcs"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_minus" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/edit_text_box"
-                    android:gravity="center"
-                    android:text="0" />
-
-                <ImageButton
-                    android:id="@+id/minus_button_pcs"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_minus" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/text_pcs_lebel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="Pcs" />
-                <TextView
-                    android:layout_margin="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" = Rs."/>
-                <TextView
-                    android:id="@+id/text_pcs_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="0" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/layout_pcs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/text_pcs_lebel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pcs" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" = ₹"/>
+                        <TextView
+                            android:id="@+id/text_pcs_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                    </LinearLayout>
+
+                </LinearLayout>
         </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
         <LinearLayout
-            android:weightSum="2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
 
             <TextView
-
-                android:gravity="right|center"
-                android:layout_weight="1"
                 android:layout_margin="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
                 android:text="Total = Rs."/>
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/total"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="left|center"
+                android:layout_margin="4dp"
                 android:padding="0dp"
+                android:textStyle="bold"
                 android:text="0"
                 android:textColor="#000000" />
         </LinearLayout>
+
         <Button
             android:visibility="gone"
             android:id="@+id/button_update_cart_item"
@@ -243,8 +287,8 @@
             android:background="@drawable/back_place_button"
             android:layout_margin="30dp"
             android:textColor="@color/colorAccent"/>
-        <LinearLayout
 
+        <LinearLayout
             android:id="@+id/double_button_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -253,22 +297,27 @@
 
             <Button
                 android:id="@+id/add_to_cart_button"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/back_button_item_cart"
                 android:elevation="8dp"
+                android:textColor="@android:color/white"
                 android:text="Add to cart" />
-            <Button
-                android:id="@+id/buy_now_button"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/back_button_item_buy"
-                android:elevation="8dp"
-                android:text="buy now" />
+
+<!--            <Button-->
+<!--                android:id="@+id/buy_now_button"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:background="@drawable/back_button_item_buy"-->
+<!--                android:elevation="8dp"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:text="buy now" />-->
+
         </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>
 
