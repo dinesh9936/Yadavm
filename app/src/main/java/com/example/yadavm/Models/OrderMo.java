@@ -7,6 +7,28 @@ private String orderTime;
 private String orderTotal;
 private String orderStatus;
 private String orderItems;
+private String orderAddress;
+private String userName;
+private String userPhone;
+private String cancelMessage;
+private String timestamp;
+
+    public OrderMo() {
+    }
+
+    public OrderMo(String orderId, String orderDate, String orderTime, String orderTotal, String orderStatus, String orderItems, String orderAddress, String userName, String userPhone, String cancelMessage, String timestamp) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.orderTime = orderTime;
+        this.orderTotal = orderTotal;
+        this.orderStatus = orderStatus;
+        this.orderItems = orderItems;
+        this.orderAddress = orderAddress;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.cancelMessage = cancelMessage;
+        this.timestamp = timestamp;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -56,15 +78,43 @@ private String orderItems;
         this.orderItems = orderItems;
     }
 
-    public OrderMo() {
+    public String getOrderAddress() {
+        return orderAddress;
     }
 
-    public OrderMo(String orderId, String orderDate, String orderTime, String orderTotal, String orderStatus, String orderItems) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.orderTime = orderTime;
-        this.orderTotal = orderTotal;
-        this.orderStatus = orderStatus;
-        this.orderItems = orderItems;
+    public void setOrderAddress(String orderAddress) {
+        this.orderAddress = orderAddress;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public String getCancelMessage() {
+        return cancelMessage;
+    }
+
+    public void setCancelMessage(String cancelMessage) {
+        this.cancelMessage = cancelMessage;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

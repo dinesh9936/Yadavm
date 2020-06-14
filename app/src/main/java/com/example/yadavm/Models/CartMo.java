@@ -1,6 +1,7 @@
 package com.example.yadavm.Models;
 
 public class CartMo {
+    private String itemType;
     private String itemName;
     private String itemImage;
     private String itemId;
@@ -14,8 +15,35 @@ public class CartMo {
     private String itemQuantitygm;
     private String itemQuantitypcs ;
     private String deliveryCharge;
+    private String timestamp;
 
     public CartMo() {
+    }
+
+    public CartMo(String itemType, String itemName, String itemImage, String itemId, String itemPricekg, String itemPriceprkg, String itemPricegm, String itemPricepcs, String itemPriceprpcs, String itemPricetotal, String itemQuantitykg, String itemQuantitygm, String itemQuantitypcs, String deliveryCharge, String timestamp) {
+        this.itemType = itemType;
+        this.itemName = itemName;
+        this.itemImage = itemImage;
+        this.itemId = itemId;
+        this.itemPricekg = itemPricekg;
+        this.itemPriceprkg = itemPriceprkg;
+        this.itemPricegm = itemPricegm;
+        this.itemPricepcs = itemPricepcs;
+        this.itemPriceprpcs = itemPriceprpcs;
+        this.itemPricetotal = itemPricetotal;
+        this.itemQuantitykg = itemQuantitykg;
+        this.itemQuantitygm = itemQuantitygm;
+        this.itemQuantitypcs = itemQuantitypcs;
+        this.deliveryCharge = deliveryCharge;
+        this.timestamp = timestamp;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
     }
 
     public String getItemName() {
@@ -122,19 +150,11 @@ public class CartMo {
         this.deliveryCharge = deliveryCharge;
     }
 
-    public CartMo(String itemName, String itemImage, String itemId, String itemPricekg, String itemPriceprkg, String itemPricegm, String itemPricepcs, String itemPriceprpcs, String itemPricetotal, String itemQuantitykg, String itemQuantitygm, String itemQuantitypcs, String deliveryCharge) {
-        this.itemName = itemName;
-        this.itemImage = itemImage;
-        this.itemId = itemId;
-        this.itemPricekg = itemPricekg;
-        this.itemPriceprkg = itemPriceprkg;
-        this.itemPricegm = itemPricegm;
-        this.itemPricepcs = itemPricepcs;
-        this.itemPriceprpcs = itemPriceprpcs;
-        this.itemPricetotal = itemPricetotal;
-        this.itemQuantitykg = itemQuantitykg;
-        this.itemQuantitygm = itemQuantitygm;
-        this.itemQuantitypcs = itemQuantitypcs;
-        this.deliveryCharge = deliveryCharge;
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

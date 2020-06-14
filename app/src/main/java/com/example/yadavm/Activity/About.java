@@ -1,12 +1,11 @@
-package com.example.yadavm;
+package com.example.yadavm.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+
+import com.example.yadavm.R;
 
 public class About extends AppCompatActivity {
 private Toolbar toolbar;
@@ -24,20 +23,20 @@ private Toolbar toolbar;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.notification){
-            Intent intent = new Intent(this,Notification.class);
-
-            startActivity(intent );
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-
+////Notistrar
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.notification){
+//            Intent intent = new Intent(this,Notification.class);
+//
+//            startActivity(intent );
+//        }
+//        return super.onOptionsItemSelected(item);
+//
+//    }
+///Noti end
     @Override
     public boolean onSupportNavigateUp() {
         finish();

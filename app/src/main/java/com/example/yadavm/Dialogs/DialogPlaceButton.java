@@ -1,5 +1,6 @@
-package com.example.yadavm;
+package com.example.yadavm.Dialogs;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,10 @@ import com.example.yadavm.Models.OrderItemsMo;
 import com.example.yadavm.Models.OrderMo;
 import com.example.yadavm.Models.PriceMo;
 import com.example.yadavm.Models.UserMo;
+import com.example.yadavm.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,10 +63,16 @@ public class DialogPlaceButton extends DialogFragment {
     int orderidint;
     int globaltotal;
 
-    String allItems;
+    String allItems,username;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
+    ProgressDialog dialog;
+
+
+    String orderddress;
+
+    long timestamp;
 
     @Nullable
     @Override
@@ -69,10 +80,13 @@ public class DialogPlaceButton extends DialogFragment {
        View view = inflater.inflate(R.layout.dialog_cart_place_button,container,false);
 
 
+        getDialog().setCanceledOnTouchOutside(false);
+
+       timestamp = System.currentTimeMillis();
 
 
 
-
+       dialog = new ProgressDialog(getActivity());
 
        reference = FirebaseDatabase.getInstance().getReference();
 
@@ -121,13 +135,43 @@ public class DialogPlaceButton extends DialogFragment {
                Date date = new Date();
 
                orderMo.setOrderItems(allItems);
-               orderMo.setOrderStatus("1");
+               orderMo.setOrderStatus("0");
+               orderMo.setOrderAddress(orderddress);
                orderMo.setOrderTime(dateFormattime.format(new Date()));
                orderMo.setOrderDate(dateFormatdate.format(new Date()));
 
+               orderMo.setTimestamp(String.valueOf(timestamp));
+               orderMo.setCancelMessage("");
+
+               orderMo.setUserName(username);
+               orderMo.setUserPhone(user.getPhoneNumber());
+
+               dialog.show();
                reference.child("User").child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
 
-               reference.child("User").child(user.getPhoneNumber()).child("Carts").removeValue();
+               reference.child("Admin").child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
+
+               DatabaseReference from =reference.child("User").child(user.getPhoneNumber()).child("Carts");
+               DatabaseReference to = reference.child("User").child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).child("ItemsDetails");
+
+               DatabaseReference toadmin = reference.child("Admin").child("My Orders").child(String.valueOf(orderidint)).child("ItemsDetails");
+
+               moveItemDetails(from,toadmin);
+               moveItemDetails(from ,to);
+               reference.child("User").child(user.getPhoneNumber()).child("Carts").removeValue()
+                       .addOnCompleteListener(new OnCompleteListener<Void>() {
+                           @Override
+                           public void onComplete(@NonNull Task<Void> task) {
+                               dialog.dismiss();
+                           }
+                       })
+                       .addOnFailureListener(new OnFailureListener() {
+                           @Override
+                           public void onFailure(@NonNull Exception e) {
+                               dialog.dismiss();
+                               Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                           }
+                       });
 
 
                getDialog().dismiss();
@@ -154,12 +198,13 @@ public class DialogPlaceButton extends DialogFragment {
                Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
            }
        });
-       reference.child("User").child(user.getPhoneNumber()).addValueEventListener(new ValueEventListener() {
+       reference.child("User").child(user.getPhoneNumber()).child("Profile").addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                UserMo userMo = dataSnapshot.getValue(UserMo.class);
-               String orderaddress = userMo.getAddress();
-               orderAddress.setText(orderaddress);
+                orderddress = userMo.getAddress();
+               orderAddress.setText(orderddress);
+               username = userMo.getName();
            }
            @Override
            public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -174,28 +219,23 @@ public class DialogPlaceButton extends DialogFragment {
                 for (DataSnapshot ds :dataSnapshot.getChildren()){
 
                     PriceMo priceMo = ds.getValue(PriceMo.class);
-
                     String ff = priceMo.getItemPricetotal();
                     String deliverycharge = priceMo.getDeliveryCharge();
-
-
                     int deliveryChar = Integer.parseInt(deliverycharge);
-
                     int pValue = Integer.parseInt(String.valueOf(ff));
                     sum +=pValue;
-                     globaltotal = deliveryChar+sum;
-                    String globalStr = String.valueOf(globaltotal);
-
-                    String d = String.valueOf(sum);
-                    textTotal.setText("Rs."+d);
-                    if (sum>=100){
-                        deliveryChargeText.setText("Rs.20");
+                    globaltotal = sum;
+                    if (sum <=100){
+                        deliveryChargeText.setText("₹ 20");
+                        globaltotal = globaltotal+20;
                     }
                     else {
-                        deliveryChargeText.setText("Rs.0");
+                        deliveryChargeText.setText("₹ 0");
                     }
-
-                    textViewGlobaltotal.setText("Total Rs."+globalStr);
+                    String globalStr = String.valueOf(globaltotal);
+                    String d = String.valueOf(sum);
+                    textTotal.setText("₹ "+d);
+                    textViewGlobaltotal.setText("Total ₹ "+globalStr);
                 }
             }
 
@@ -247,6 +287,31 @@ public class DialogPlaceButton extends DialogFragment {
 
 
 
+    }
+
+    private void moveItemDetails(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+
+                        } else {
+
+
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

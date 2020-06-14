@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
+    android:id="@+id/order_card_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -90,5 +91,13 @@
                android:background="@drawable/back_place_button"/>
        </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/text_cancel_message"
+       />
 </LinearLayout>
 </androidx.cardview.widget.CardView>

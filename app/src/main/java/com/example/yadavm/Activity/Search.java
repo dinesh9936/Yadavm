@@ -1,4 +1,4 @@
-package com.example.yadavm;
+package com.example.yadavm.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.yadavm.Adapters.HomeAd;
 import com.example.yadavm.Adapters.SearchAd;
 import com.example.yadavm.Models.SearchMo;
+import com.example.yadavm.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

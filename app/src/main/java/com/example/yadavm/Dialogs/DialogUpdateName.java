@@ -1,4 +1,4 @@
-package com.example.yadavm;
+package com.example.yadavm.Dialogs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,25 +19,24 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class DialogUpdate extends DialogFragment {
-EditText editTextAddress;
-Button button;
-DatabaseReference reference;
+public class DialogUpdateName extends DialogFragment {
+    EditText editTextAddress;
+    Button button;
+    DatabaseReference reference;
 
-FirebaseAuth firebaseAuth;
-FirebaseUser user;
-
-ImageButton imageButton;
-
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    ImageButton imageButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.dialog_update,container,false);
-
+        View view = inflater.inflate(R.layout.dialog_update_name,container,false);
+        getDialog().setCanceledOnTouchOutside(false);
         reference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
-
+        user = firebaseAuth.getCurrentUser();
+        editTextAddress = view.findViewById(R.id.dialog_edit_text_name);
         imageButton = view.findViewById(R.id.clear_dialog);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,9 +44,6 @@ ImageButton imageButton;
                 getDialog().dismiss();
             }
         });
-         user = firebaseAuth.getCurrentUser();
-        editTextAddress = view.findViewById(R.id.dialog_edit_text);
-
         button = view.findViewById(R.id.submit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,21 +51,16 @@ ImageButton imageButton;
                 String address = editTextAddress.getText().toString().trim();
 
                 if (address.isEmpty()){
-                    Toast.makeText(getActivity(), "Please Enter Your Address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Enter Your Nick Name...", Toast.LENGTH_SHORT).show();
                 }
+
                 else {
-                    reference.child("User").child(user.getPhoneNumber()).child("address").setValue(address);
-
-
+                    reference.child("User").child(user.getPhoneNumber()).child("Profile").child("name").setValue(address);
                     getDialog().dismiss();
                 }
 
-
-
             }
-        });
-
+            });
         return view;
-
     }
 }

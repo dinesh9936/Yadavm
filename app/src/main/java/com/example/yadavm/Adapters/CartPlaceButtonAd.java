@@ -36,10 +36,8 @@ Context context;
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-
-
-        holder.itemname.setText(list.get(position).getItemName()+"/");
-        holder.itemprice.setText("/"+"Rs."+list.get(position).getItemPricetotal());
+        holder.itemname.setText(list.get(position).getItemName());
+        holder.itemprice.setText("₹"+list.get(position).getItemPricetotal());
         if (list.get(position).getItemQuantitykg().equals("0")){
             holder.itemqnty.setText(list.get(position).getItemQuantitypcs()+"Pcs");
         }

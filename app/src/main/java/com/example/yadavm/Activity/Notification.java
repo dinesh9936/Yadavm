@@ -1,4 +1,4 @@
-package com.example.yadavm;
+package com.example.yadavm.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.yadavm.Adapters.NotiAd;
-import com.example.yadavm.Models.HomeMo;
 import com.example.yadavm.Models.NotiMo;
+import com.example.yadavm.R;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,6 +78,7 @@ public class Notification extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Notification.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });

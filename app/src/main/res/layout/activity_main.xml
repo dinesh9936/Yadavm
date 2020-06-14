@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
     <FrameLayout
         android:layout_above="@+id/bottom_nav_bar"
         android:id="@+id/container"
@@ -13,14 +13,13 @@
         android:layout_height="match_parent"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:elevation="8dp"
-        app:itemIconSize="36dp"
         android:background="@color/cardview_light_background"
         android:layout_alignParentBottom="true"
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:menu="@menu/bottom_navi_item"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="labeled"
         />
 
 </RelativeLayout>

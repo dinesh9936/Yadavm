@@ -20,6 +20,7 @@
     android:layout_centerHorizontal="true"
     android:textStyle="bold"/>
     <EditText
+        android:inputType="textCapWords"
         android:textSize="15dp"
         android:padding="5dp"
         android:hint="Complete Local Address..."

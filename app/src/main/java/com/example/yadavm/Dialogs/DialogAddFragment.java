@@ -1,4 +1,4 @@
-package com.example.yadavm;
+package com.example.yadavm.Dialogs;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,11 +10,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.bumptech.glide.Glide;
 import com.example.yadavm.Models.CartMo;
+import com.example.yadavm.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +34,7 @@ public ImageButton imageButtonPluskg,imageButtonPlusgm,imageButtonPluspcs,imageB
 
 public  TextView textViewkg,textViewgm,textViewpcs,textViewKgValue,textViewGmValue,textViewPcsValue,textViewtotal;
 
-public  String name,image,pricekg,pricepcs,itemid;
+public  String name,image,pricekg,pricepcs,itemid,itemtype;
 public LinearLayout linearLayoutkg,linearLayoutgm,linearLayoutpcs;
 public int pricekgint,pricegmint,pricepcsint;
 
@@ -42,7 +45,7 @@ public DatabaseReference reference;
 
 public Button buttonAddtocart;
 
-public ProgressDialog dialog;
+DialogLoading loading;
 
 FirebaseAuth firebaseAuth;
 FirebaseUser user;
@@ -53,9 +56,9 @@ FirebaseUser user;
 
 
         View view = inflater.inflate(R.layout.dialog_item, container, false);
+        getDialog().setCanceledOnTouchOutside(false);
 
-        dialog = new ProgressDialog(getActivity());
-
+        loading = new DialogLoading();
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -67,6 +70,7 @@ FirebaseUser user;
         pricekg = getArguments().getString("itempricekg");
         pricepcs = getArguments().getString("itempricepcs");
         itemid = getArguments().getString("itemid");
+        itemtype = getArguments().getString("itemtype");
 
 pricekgint = Integer.parseInt(pricekg);
 
@@ -96,6 +100,7 @@ buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
 
 
         textViewKgValue = view.findViewById(R.id.text_kg_value);
+
         textViewGmValue = view.findViewById(R.id.text_gm_value);
         textViewPcsValue = view.findViewById(R.id.text_pcs_value);
 
@@ -196,38 +201,53 @@ buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
         buttonAddtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartMo cartMo = new CartMo();
-                cartMo.setItemName(name);
-                if (Integer.parseInt(textViewtotal.getText().toString().trim()) <= 100) {
-                    cartMo.setDeliveryCharge("0");
+                buttonAddtocart.setEnabled(false);
+               String kg = textViewkg.getText().toString().trim();
+               String gm = textViewkg.getText().toString().trim();
+               String pcs = textViewkg.getText().toString().trim();
+               if (kg.equals("0")&&gm.equals("0") && pcs.equals("0")){
+                   Toast.makeText(getContext(), "Add Quantity", Toast.LENGTH_SHORT).show();
+                   buttonAddtocart.setEnabled(true);
+               }
+               else {
+                   CartMo cartMo = new CartMo();
+                   cartMo.setItemName(name);
+                   if (Integer.parseInt(textViewtotal.getText().toString().trim()) <= 100) {
+                       cartMo.setDeliveryCharge("0");
 
-                }
-                else {
-                    cartMo.setDeliveryCharge("20");
-                }
-                cartMo.setItemImage(image);
-                cartMo.setItemId(itemid);
-                cartMo.setItemPriceprkg(pricekg);
-                cartMo.setItemPriceprpcs(pricepcs);
-                cartMo.setItemPricekg(textViewKgValue.getText().toString().trim());
-                cartMo.setItemPricegm(textViewGmValue.getText().toString().trim());
-                cartMo.setItemPricepcs(textViewPcsValue.getText().toString().trim());
-                cartMo.setItemPricetotal(textViewtotal.getText().toString().trim());
-                cartMo.setItemQuantitykg(textViewkg.getText().toString().trim());
-                cartMo.setItemQuantitygm(textViewgm.getText().toString().trim());
-                cartMo.setItemQuantitypcs(textViewpcs.getText().toString().trim());
+                   }
+                   else {
+                       cartMo.setDeliveryCharge("20");
+                   }
+                   cartMo.setItemType(itemtype);
+                   cartMo.setItemImage(image);
+                   cartMo.setItemId(itemid);
+                   cartMo.setItemPriceprkg(pricekg);
+                   cartMo.setItemPriceprpcs(pricepcs);
+                   cartMo.setItemPricekg(textViewKgValue.getText().toString().trim());
+                   cartMo.setItemPricegm(textViewGmValue.getText().toString().trim());
+                   cartMo.setItemPricepcs(textViewPcsValue.getText().toString().trim());
+                   cartMo.setItemPricetotal(textViewtotal.getText().toString().trim());
+                   cartMo.setItemQuantitykg(textViewkg.getText().toString().trim());
+                   cartMo.setItemQuantitygm(textViewgm.getText().toString().trim());
+                   cartMo.setItemQuantitypcs(textViewpcs.getText().toString().trim());
 
-                dialog.show();
-                reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                   loading.show(getChildFragmentManager(),"Loading");
 
-                                dialog.dismiss();
-                            }
-                        });
+                   reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo)
+                           .addOnCompleteListener(new OnCompleteListener<Void>() {
+                               @Override
+                               public void onComplete(@NonNull Task<Void> task) {
 
-                getDialog().dismiss();
+                                   loading.dismiss();
+                               }
+                           });
+
+
+                   dismiss();
+                   buttonAddtocart.setEnabled(true);
+               }
+
             }
         });
         return view;

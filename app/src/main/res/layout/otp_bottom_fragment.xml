@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     style="@style/AppBottomSheetDialogTheme"
     android:layout_height="wrap_content">
-
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-       <LinearLayout
+    <LinearLayout
            android:layout_marginTop="20dp"
            android:gravity="center"
            android:orientation="horizontal"
@@ -30,7 +29,7 @@
                android:text="+91 8840723127"
                android:textColor="#d24c0f"/>
        </LinearLayout>
-<EditText
+    <EditText
     android:id="@+id/verification_code"
     android:maxLines="1"
     android:inputType="number"
@@ -44,7 +43,7 @@
     android:background="@drawable/edit_sign_in_back"
     android:hint="Enter OTP"
     android:gravity="center" />
-        <Button
+    <Button
             android:id="@+id/button_verify"
             android:elevation="4dp"
             android:layout_marginBottom="5dp"
@@ -57,5 +56,4 @@
             android:textColor="@android:color/white"
             android:background="@drawable/button_background"/>
     </LinearLayout>
-
 </LinearLayout>

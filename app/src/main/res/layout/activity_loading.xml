@@ -6,30 +6,34 @@
     android:layout_width="match_parent"
     android:background="@drawable/back"
     android:layout_height="match_parent"
-    tools:context=".Loading">
-    <ProgressBar
-        android:layout_below="@+id/text"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progress_dialog"/>
-    <ImageButton
-        android:id="@+id/icon"
-        android:background="@android:color/transparent"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_restaurant_login"/>
+    tools:context=".Activity.Loading">
 
-    <TextView
-        android:id="@+id/text"
-        android:textColor="#000000"
-        android:layout_marginTop="5dp"
-        android:textSize="20dp"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/icon"
-        android:layout_centerHorizontal="true"
-        android:text="Yadav Milk Dairy"
-        />
+        android:layout_centerInParent="true">
+
+        <ImageButton
+            android:id="@+id/icon"
+            android:background="@android:color/transparent"
+            android:layout_margin="10dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_restaurant_login"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon"
+            android:layout_centerHorizontal="true"
+            android:text="Yadav Milk Dairy"
+            />
+    </RelativeLayout>
+
+
 </RelativeLayout>

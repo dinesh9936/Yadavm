@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ordersfrag">
+    tools:context=".Fragments.Ordersfrag">
 
 <include
     layout="@layout/toolbar_main"/>
@@ -15,6 +15,15 @@
         android:layout_height="match_parent"
         android:id="@+id/recycler_order"
         android:layout_below="@+id/toolbar"/>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/text_nothing_in_order"
+        android:layout_centerInParent="true"
+        android:textSize="20dp"
+        android:textColor="#D24C0F"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nothing in Order List"/>
     <TextView
         android:visibility="gone"
         android:id="@+id/text_nothing_in_order"

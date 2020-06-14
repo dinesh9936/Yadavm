@@ -1,9 +1,8 @@
-package com.example.yadavm;
+package com.example.yadavm.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -27,8 +26,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
+import com.example.yadavm.Activity.About;
+import com.example.yadavm.Activity.Login;
+import com.example.yadavm.Activity.MainActivity;
+import com.example.yadavm.Activity.Notification;
+import com.example.yadavm.Dialogs.DialogUpdate;
+import com.example.yadavm.Dialogs.DialogUpdateName;
 import com.example.yadavm.Models.SuggestMo;
 import com.example.yadavm.Models.UserMo;
+import com.example.yadavm.R;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,7 +67,7 @@ DatabaseReference reference;
 private StorageReference mStorageReference;
 TextView textViewName,textViewPhone,textViewAddress,textViewAbout;
 Button buttonLogOut;
-String name,phone;
+String name,phone,image;
 ImageButton imageButtonAdd;
 ProgressDialog progressDialog;
 CircleImageView imageViewUploadItem;
@@ -69,6 +75,8 @@ ImageButton imageButtonAddress,imageButtonSuggestion;
 EditText editTextSuggestion;
 FirebaseUser user;
 LinearLayout linearLayout;
+
+long timestamp;
 
     public Profile() {
 
@@ -86,6 +94,7 @@ LinearLayout linearLayout;
 
         View view = inflater.inflate(R.layout.fragment_profile,container,false);
 
+        timestamp = System.currentTimeMillis();
 
         firebaseAuth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
@@ -114,7 +123,7 @@ LinearLayout linearLayout;
         textViewAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),About.class);
+                Intent intent = new Intent(getActivity(), About.class);
                 startActivity(intent);
             }
         });
@@ -175,7 +184,7 @@ LinearLayout linearLayout;
                     Toast.makeText(getActivity(), "Please Write Your Suggest...", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    SuggestMo suggestMo = new SuggestMo(suggestion,user.getPhoneNumber(),name);
+                    SuggestMo suggestMo = new SuggestMo(suggestion,image,name,String.valueOf(timestamp));
 
                     reference.child("Suggestions").push().setValue(suggestMo);
                     editTextSuggestion.setText(null);
@@ -204,7 +213,7 @@ LinearLayout linearLayout;
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
-                Intent intent = new Intent(getActivity(),Login.class);
+                Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
                 Objects.requireNonNull(getActivity()).finish();
             }
@@ -224,7 +233,7 @@ LinearLayout linearLayout;
         int id = item.getItemId();
 
         if (id == R.id.notification){
-            Intent intent = new Intent(getActivity(),Notification.class);
+            Intent intent = new Intent(getActivity(), Notification.class);
 
             startActivity(intent );
         }
@@ -238,7 +247,7 @@ LinearLayout linearLayout;
          user = firebaseAuth.getCurrentUser();
 
         if (user != null)
-            reference.child("User").child(Objects.requireNonNull(user.getPhoneNumber())).addValueEventListener(new ValueEventListener() {
+            reference.child("User").child(Objects.requireNonNull(user.getPhoneNumber())).child("Profile").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (isAdded()) {
@@ -249,7 +258,7 @@ LinearLayout linearLayout;
                         textViewPhone.setText(phone);
                         textViewAddress.setText(userMo.getAddress());
 
-                        String image = userMo.getProfilepic();
+                         image = userMo.getProfilepic();
                         if (image != null) {
                             Glide.with(getContext())
                                     .load(image)
@@ -262,6 +271,7 @@ LinearLayout linearLayout;
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -284,18 +294,17 @@ LinearLayout linearLayout;
 
                     bitmap.compress(Bitmap.CompressFormat.JPEG,25,baos);
                     byte [] datai = baos.toByteArray();
-                    mStorageReference.child("User").child(user.getPhoneNumber()).putBytes(datai).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    mStorageReference.child("User").child(user.getPhoneNumber()).child("Profile").putBytes(datai).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-//                        String uri = String.valueOf(task.getResult().getMetadata().getReference());
-//              Imag          reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri);
 
-                            mStorageReference.child("User").child(user.getPhoneNumber()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                            mStorageReference.child("User").child(user.getPhoneNumber()).child("Profile").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                    reference.child("User").child(user.getPhoneNumber()).child("profilepic").setValue(uri.toString());
+                                    reference.child("User").child(user.getPhoneNumber()).child("Profile").child("profilepic").setValue(uri.toString());
                                     Glide.with(getContext())
                                             .load(uri.toString())
                                             .into(imageViewUploadItem);
@@ -327,6 +336,7 @@ LinearLayout linearLayout;
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
             }
         }
 

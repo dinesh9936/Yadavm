@@ -15,8 +15,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.yadavm.DialogAddFragment;
-import com.example.yadavm.MainActivity;
+import com.example.yadavm.Dialogs.DialogAddFragment;
+import com.example.yadavm.Activity.MainActivity;
 import com.example.yadavm.Models.HomeMo;
 import com.example.yadavm.R;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +54,7 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  HomeAd.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final HomeAd.ViewHolder holder, int position) {
 
         final HomeMo homemodel = mHomeList.get(position);
 
@@ -62,12 +62,12 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
 
 
         holder.itemname.setText(homemodel.getItemName());
-        if (homemodel.getItemPricekg().equals("0")){
+        if (homemodel.getItemType().equals("pcs")){
            holder.itempricekg.setVisibility(View.GONE);
            holder.itempricepcs.setText("Rs."+homemodel.getItemPricepcs()+"/"+"Pcs");
 
         }
-        else if (homemodel.getItemPricepcs().equals("0")){
+        else if (homemodel.getItemType().equals("kg")){
             holder.itempricepcs.setVisibility(View.GONE);
             holder.itempricekg.setText("Rs."+homemodel.getItemPricekg()+"/"+"Kg");
 
@@ -98,6 +98,7 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
                 args.putString("itempricekg",homemodel.getItemPricekg());
                 args.putString("itempricepcs",homemodel.getItemPricepcs());
                 args.putString("itemid",homemodel.getItemId());
+                args.putString("itemtype",homemodel.getItemType());
                 alertDialog.setArguments(args);
                 alertDialog.show(fm, "fragment_alert");
 

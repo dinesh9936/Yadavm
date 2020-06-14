@@ -9,18 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.yadavm.DialogAddFragment;
-import com.example.yadavm.MainActivity;
+import com.example.yadavm.Dialogs.DialogAddFragment;
 import com.example.yadavm.Models.SearchMo;
 import com.example.yadavm.R;
-import com.example.yadavm.Search;
+import com.example.yadavm.Activity.Search;
 
 import java.util.ArrayList;
 
