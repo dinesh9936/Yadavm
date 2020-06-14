@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Loading extends AppCompatActivity {
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    private final int SPLASH_DISPLAY_LENGTH = 1500;
     FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

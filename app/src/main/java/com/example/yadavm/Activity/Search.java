@@ -66,7 +66,7 @@ public class Search extends AppCompatActivity {
         super.onStart();
         if (reference != null)
         {
-            reference.addValueEventListener(new ValueEventListener() {
+            reference.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

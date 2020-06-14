@@ -20,14 +20,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class DialogUpdate extends DialogFragment {
+
 EditText editTextAddress;
 Button button;
-DatabaseReference reference;
+ImageButton imageButton;
 
+
+DatabaseReference reference;
 FirebaseAuth firebaseAuth;
 FirebaseUser user;
 
-ImageButton imageButton;
+
 
     @Nullable
     @Override

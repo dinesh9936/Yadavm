@@ -7,6 +7,20 @@ public class HomeMo {
     private  String itemPricepcs;
     private String itemId;
     private String itemType;
+    private String timestamp;
+
+    public HomeMo() {
+    }
+
+    public HomeMo(String itemImage, String itemName, String itemPricekg, String itemPricepcs, String itemId, String itemType, String timestamp) {
+        this.itemImage = itemImage;
+        this.itemName = itemName;
+        this.itemPricekg = itemPricekg;
+        this.itemPricepcs = itemPricepcs;
+        this.itemId = itemId;
+        this.itemType = itemType;
+        this.timestamp = timestamp;
+    }
 
     public String getItemImage() {
         return itemImage;
@@ -56,16 +70,12 @@ public class HomeMo {
         this.itemType = itemType;
     }
 
-    public HomeMo() {
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public HomeMo(String itemImage, String itemName, String itemPricekg, String itemPricepcs, String itemId, String itemType) {
-        this.itemImage = itemImage;
-        this.itemName = itemName;
-        this.itemPricekg = itemPricekg;
-        this.itemPricepcs = itemPricepcs;
-        this.itemId = itemId;
-        this.itemType = itemType;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
 

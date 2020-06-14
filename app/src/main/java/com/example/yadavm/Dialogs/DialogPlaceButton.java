@@ -67,7 +67,7 @@ public class DialogPlaceButton extends DialogFragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    ProgressDialog dialog;
+    DialogLoading loading;
 
 
     String orderddress;
@@ -86,7 +86,7 @@ public class DialogPlaceButton extends DialogFragment {
 
 
 
-       dialog = new ProgressDialog(getActivity());
+       loading = new DialogLoading();
 
        reference = FirebaseDatabase.getInstance().getReference();
 
@@ -146,35 +146,38 @@ public class DialogPlaceButton extends DialogFragment {
                orderMo.setUserName(username);
                orderMo.setUserPhone(user.getPhoneNumber());
 
-               dialog.show();
-               reference.child("User").child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
 
-               reference.child("Admin").child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
+               reference.child("User").child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
+               reference.child("Shopkeepers").child("My Orders").child(String.valueOf(orderidint)).setValue(orderMo);
+
 
                DatabaseReference from =reference.child("User").child(user.getPhoneNumber()).child("Carts");
                DatabaseReference to = reference.child("User").child(user.getPhoneNumber()).child("My Orders").child(String.valueOf(orderidint)).child("ItemsDetails");
 
-               DatabaseReference toadmin = reference.child("Admin").child("My Orders").child(String.valueOf(orderidint)).child("ItemsDetails");
+               DatabaseReference toadmin = reference.child("Shopkeepers").child("My Orders").child(String.valueOf(orderidint)).child("ItemsDetails");
 
                moveItemDetails(from,toadmin);
+
+
                moveItemDetails(from ,to);
+
                reference.child("User").child(user.getPhoneNumber()).child("Carts").removeValue()
                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                            @Override
                            public void onComplete(@NonNull Task<Void> task) {
-                               dialog.dismiss();
+
                            }
                        })
                        .addOnFailureListener(new OnFailureListener() {
                            @Override
                            public void onFailure(@NonNull Exception e) {
-                               dialog.dismiss();
+
                                Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
                            }
                        });
 
 
-               getDialog().dismiss();
+            dismiss();
            }
        });
 
@@ -216,27 +219,30 @@ public class DialogPlaceButton extends DialogFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int sum = 0;
-                for (DataSnapshot ds :dataSnapshot.getChildren()){
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot ds :dataSnapshot.getChildren()){
 
-                    PriceMo priceMo = ds.getValue(PriceMo.class);
-                    String ff = priceMo.getItemPricetotal();
-                    String deliverycharge = priceMo.getDeliveryCharge();
-                    int deliveryChar = Integer.parseInt(deliverycharge);
-                    int pValue = Integer.parseInt(String.valueOf(ff));
-                    sum +=pValue;
-                    globaltotal = sum;
-                    if (sum <=100){
-                        deliveryChargeText.setText("₹ 20");
-                        globaltotal = globaltotal+20;
+                        PriceMo priceMo = ds.getValue(PriceMo.class);
+                        String ff = priceMo.getItemPricetotal();
+                        String deliverycharge = priceMo.getDeliveryCharge();
+                        int deliveryChar = Integer.parseInt(deliverycharge);
+                        int pValue = Integer.parseInt(String.valueOf(ff));
+                        sum +=pValue;
+                        globaltotal = sum;
+                        if (sum <=100){
+                            deliveryChargeText.setText("₹20");
+                            globaltotal = globaltotal+20;
+                        }
+                        else {
+                            deliveryChargeText.setText("₹ 0");
+                        }
+                        String globalStr = String.valueOf(globaltotal);
+                        String d = String.valueOf(sum);
+                        textTotal.setText("₹"+d);
+                        textViewGlobaltotal.setText("Total ₹"+globalStr);
                     }
-                    else {
-                        deliveryChargeText.setText("₹ 0");
-                    }
-                    String globalStr = String.valueOf(globaltotal);
-                    String d = String.valueOf(sum);
-                    textTotal.setText("₹ "+d);
-                    textViewGlobaltotal.setText("Total ₹ "+globalStr);
                 }
+
             }
 
             @Override
@@ -254,11 +260,15 @@ public class DialogPlaceButton extends DialogFragment {
 
     private void readPost(){
         reference.keepSynced(true);
+
+
         reference.child("User").child(user.getPhoneNumber()).child("Carts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if (isAdded()){
                    if (dataSnapshot.exists()){
+
+
                        cartMoList = new ArrayList<>();
                        for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
 
@@ -270,6 +280,8 @@ public class DialogPlaceButton extends DialogFragment {
                        cartPlaceButtonAd = new CartPlaceButtonAd(cartMoList);
                        recyclerView.setAdapter(cartPlaceButtonAd);
 
+                   }
+                   else {
                    }
                }
 
@@ -301,6 +313,7 @@ public class DialogPlaceButton extends DialogFragment {
                         } else {
 
 
+
                         }
                     }
                 });
@@ -309,6 +322,7 @@ public class DialogPlaceButton extends DialogFragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
 
             }
         });

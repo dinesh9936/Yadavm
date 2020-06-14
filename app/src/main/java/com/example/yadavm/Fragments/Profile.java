@@ -26,7 +26,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
-import com.example.yadavm.Activity.About;
 import com.example.yadavm.Activity.Login;
 import com.example.yadavm.Activity.MainActivity;
 import com.example.yadavm.Activity.Notification;

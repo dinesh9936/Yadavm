@@ -88,6 +88,7 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
             @Override
             public void onClick(View v) {
 
+                holder.addButton.setEnabled(false);
                 MainActivity activity = (MainActivity) (mContext);
                 FragmentManager fm = activity.getSupportFragmentManager();
                 DialogAddFragment alertDialog = new DialogAddFragment();
@@ -103,6 +104,7 @@ public class HomeAd extends RecyclerView.Adapter<HomeAd.ViewHolder>{
                 alertDialog.show(fm, "fragment_alert");
 
 
+                holder.addButton.setEnabled(true);
 
             }
         });

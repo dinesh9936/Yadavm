@@ -88,10 +88,13 @@ public class Homefrag extends Fragment {
         recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_home);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         mHomeList = new ArrayList<>();
 
+        homeadapter = new HomeAd(getContext(),mHomeList);
 
 
         readPost();
@@ -109,7 +112,8 @@ public class Homefrag extends Fragment {
         reference.keepSynced(true);
         loading.show(getChildFragmentManager(),"Loading");
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.orderByChild("timestamp" +
+                "").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if (isAdded()){

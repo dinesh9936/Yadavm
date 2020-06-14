@@ -110,14 +110,14 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
             holder.textViewGm.setText(homemodel.getItemQuantitygm()+"00");
             holder.textViewKgValue.setText(homemodel.getItemPricekg());
             holder.textViewGmValue.setText(homemodel.getItemPricegm());
-            holder.textViewTotal.setText("Rs."+homemodel.getItemPricetotal());
+            holder.textViewTotal.setText("₹"+homemodel.getItemPricetotal());
         }
         else if (homemodel.getItemType().equals("pcs")){
             holder.linearLayoutKg.setVisibility(View.GONE);
             holder.linearLayoutGm.setVisibility(View.GONE);
             holder.textViewPcs.setText(homemodel.getItemQuantitypcs());
             holder.textViewPcsValue.setText(homemodel.getItemPricepcs());
-            holder.textViewTotal.setText("Rs."+homemodel.getItemPricetotal());
+            holder.textViewTotal.setText("₹"+homemodel.getItemPricetotal());
         }
 
         else {
@@ -125,7 +125,7 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
             holder.textViewGm.setText(homemodel.getItemQuantitygm()+"00");
             holder.textViewPcs.setText(homemodel.getItemQuantitypcs());
             holder.textViewPcsValue.setText(homemodel.getItemPricepcs());
-            holder.textViewTotal.setText("Rs."+homemodel.getItemPricetotal());
+            holder.textViewTotal.setText("₹"+homemodel.getItemPricetotal());
 
             holder.textViewKgValue.setText(homemodel.getItemPricekg());
             holder.textViewGmValue.setText(homemodel.getItemPricegm());
