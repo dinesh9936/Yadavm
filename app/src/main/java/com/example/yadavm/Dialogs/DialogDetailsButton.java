@@ -53,7 +53,7 @@ public class DialogDetailsButton extends DialogFragment {
     private TextView orderId,orderAddress,textTotal,deliveryChargeText,textViewGlobaltotal;
     DatabaseReference reference;
 
-    Button buttonConfirm;
+    Button buttonConfirm, buttonOk;
 
     RecyclerView recyclerView;
 
@@ -115,6 +115,14 @@ public class DialogDetailsButton extends DialogFragment {
 
         readPost();
         buttonConfirm = view.findViewById(R.id.button_confirm_plce);
+        buttonOk = view.findViewById(R.id.button_ok);
+        buttonOk.setVisibility(View.VISIBLE);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
  buttonConfirm.setVisibility(View.GONE);
 
 
@@ -163,16 +171,16 @@ public class DialogDetailsButton extends DialogFragment {
                     sum +=pValue;
                     globaltotal = sum;
                     if (sum <=100){
-                        deliveryChargeText.setText("₹ 20");
+                        deliveryChargeText.setText("₹20");
                         globaltotal = globaltotal+20;
                     }
                     else {
-                        deliveryChargeText.setText("₹ 0");
+                        deliveryChargeText.setText("₹0");
                     }
                     String globalStr = String.valueOf(globaltotal);
                     String d = String.valueOf(sum);
-                    textTotal.setText("₹ "+d);
-                    textViewGlobaltotal.setText("Total ₹ "+globalStr);
+                    textTotal.setText("₹"+d);
+                    textViewGlobaltotal.setText("Total ₹"+globalStr);
                 }
             }
 

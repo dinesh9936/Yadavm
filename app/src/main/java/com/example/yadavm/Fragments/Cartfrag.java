@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class Cartfrag extends Fragment {
     private CartAd cartAd;
     private List<CartMo> mCartMoList;
     private Button buttonPlace;
-    private TextView textViewNothing;
+    private ImageView imageViewEmpty;
 
     DialogLoading loading;
 
@@ -59,37 +60,40 @@ public class Cartfrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cartfrag,container,false);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        if (isAdded()){
+            Toolbar toolbar = view.findViewById(R.id.toolbar);
+            toolbar.setTitle("");
 
-        loading = new DialogLoading();
+            loading = new DialogLoading();
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
+            firebaseAuth = FirebaseAuth.getInstance();
+            user = firebaseAuth.getCurrentUser();
 
-        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("User").child(Objects.requireNonNull(user.getPhoneNumber())).child("Carts");
-        recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_cart);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCartMoList = new ArrayList<>();
-        buttonPlace = (Button)view.findViewById(R.id.button_place);
-        textViewNothing = view.findViewById(R.id.text_nothing_in_cart);
-        buttonPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                DialogPlaceButton dialogPlaceButton = new DialogPlaceButton();
-                assert fm != null;
-                dialogPlaceButton.show(fm,"Hello");
-            }
-        });
-        readPost();
+            ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+            setHasOptionsMenu(true);
+            database = FirebaseDatabase.getInstance();
+            reference = database.getReference().child("User").child(Objects.requireNonNull(user.getPhoneNumber())).child("Carts");
+            recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_cart);
+            recyclerView.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            // recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mCartMoList = new ArrayList<>();
+            buttonPlace = (Button)view.findViewById(R.id.button_place);
+            imageViewEmpty = view.findViewById(R.id.text_nothing_in_cart);
+            buttonPlace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fm = getFragmentManager();
+                    DialogPlaceButton dialogPlaceButton = new DialogPlaceButton();
+                    assert fm != null;
+                    dialogPlaceButton.show(fm,"Hello");
+                }
+            });
+            readPost();
+        }
+
         return view;
     }
     @Override
@@ -107,7 +111,7 @@ public class Cartfrag extends Fragment {
                     if (dataSnapshot.exists()) {
                         loading.dismiss();
                         recyclerView.setVisibility(View.VISIBLE);
-                        textViewNothing.setVisibility(View.GONE);
+                        imageViewEmpty.setVisibility(View.GONE);
                         buttonPlace.setVisibility(View.VISIBLE);
                         mCartMoList = new ArrayList<>();
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -120,7 +124,7 @@ public class Cartfrag extends Fragment {
                     else {
                         loading.dismiss();
                         recyclerView.setVisibility(View.GONE);
-                        textViewNothing.setVisibility(View.VISIBLE);
+                        imageViewEmpty.setVisibility(View.VISIBLE);
                         buttonPlace.setVisibility(View.GONE);
 
                     }

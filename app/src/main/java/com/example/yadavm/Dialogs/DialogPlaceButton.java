@@ -176,7 +176,6 @@ public class DialogPlaceButton extends DialogFragment {
                            }
                        });
 
-
             dismiss();
            }
        });

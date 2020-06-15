@@ -11,6 +11,7 @@
     layout="@layout/toolbar_main"
       />
 <androidx.recyclerview.widget.RecyclerView
+
     android:id="@+id/recycler_cart"
     android:nestedScrollingEnabled="false"
     android:elevation="0dp"
@@ -19,15 +20,13 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/toolbar"
     />
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/text_nothing_in_cart"
-        android:layout_centerInParent="true"
-        android:textSize="20dp"
-        android:textColor="#D24C0F"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nothing in cart"/>
+   <ImageView
+       android:layout_width="70dp"
+       android:layout_height="70dp"
+       android:id="@+id/text_nothing_in_cart"
+       android:layout_centerInParent="true"
+       android:visibility="gone"
+       android:src="@drawable/emptycart"/>
  <Button
      android:visibility="gone"
      android:id="@+id/button_place"

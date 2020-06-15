@@ -61,9 +61,16 @@ public class OtpLoginSheet extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 buttonVerify.setEnabled(false);
                 String code = editTextOtp.getText().toString().trim();
-                loading.show(getChildFragmentManager(),"Loading");
-                verifyCode(code);
-                buttonVerify.setEnabled(true);
+
+                if (code.isEmpty()){
+                    Toast.makeText(getContext(), "Enter verification code", Toast.LENGTH_SHORT).show();
+                    buttonVerify.setEnabled(true);
+                }
+                else {
+                    loading.show(getChildFragmentManager(),"Loading");
+                    verifyCode(code);
+                    buttonVerify.setEnabled(true);
+                }
             }
         });
 

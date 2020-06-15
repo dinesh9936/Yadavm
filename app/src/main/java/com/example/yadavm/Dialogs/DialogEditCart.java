@@ -2,6 +2,7 @@ package com.example.yadavm.Dialogs;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -30,11 +33,11 @@ public class DialogEditCart extends DialogFragment {
     private ImageView imageViewItemImage;
     public ImageButton imageButtonPluskg,imageButtonPlusgm,imageButtonPluspcs,imageButtonMinuskg,imageButtonMinusgm,imageButtonMinuspcs;
 
-    public  TextView textViewkg,textViewgm,textViewpcs,textViewKgValue,textViewGmValue,textViewPcsValue,textViewtotal;
+    public  TextView textViewkg,textViewgm,textViewpcs,textViewKgValue,textViewGmValue,textViewPcsValue,textViewtotal,textViewTotalQt;
 
     public  String name,image,pricekg,pricepcs,itemid, itemkg, total, itemgm, itempcs, itemkgvalue, itemgmvalue, itempcsvalue, itemtype;
     public LinearLayout linearLayoutkg,linearLayoutgm,linearLayoutpcs;
-    public int pricekgint,pricegmint,pricepcsint;
+    public int pricekgint,pricepcsint;
 
     public int totalPrice ;
 
@@ -43,14 +46,15 @@ public class DialogEditCart extends DialogFragment {
 
     public Button buttonAddtocart;
 
-    public ProgressDialog dialog;
+   DialogLoading loading;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    LinearLayout linearLayout;
-    Button buttonUpdate;
+    LinearLayout linearLayout,linearLayout2;
+    Button buttonUpdate, buttonOk;
 
+    float pricegmint;
 
 
     @Nullable
@@ -60,8 +64,8 @@ public class DialogEditCart extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_item, container, false);
         getDialog().setCanceledOnTouchOutside(false);
-        dialog = new ProgressDialog(getActivity());
 
+        loading = new DialogLoading();
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -90,16 +94,28 @@ public class DialogEditCart extends DialogFragment {
         pricekgint = Integer.parseInt(pricekg);
 
 
-        pricegmint = pricekgint/10;
+        float pricekgdouble = (float) (pricekgint/20.0);
+        Log.d("Debug", "onCreateView: "+pricekgdouble);
+        pricegmint = pricekgdouble;
 
         pricepcsint = Integer.parseInt(pricepcs);
 
 
         buttonAddtocart = view.findViewById(R.id.add_to_cart_button);
+        buttonOk = view.findViewById(R.id.button_ok);
+        buttonOk.setVisibility(View.VISIBLE);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
 
 
         linearLayout = view.findViewById(R.id.double_button_layout);
+        linearLayout2 = view.findViewById(R.id.double_button_layout2);
+        linearLayout2.setVisibility(View.VISIBLE);
         linearLayout.setVisibility(View.GONE);
         buttonUpdate = view.findViewById(R.id.button_update_cart_item);
         buttonUpdate.setVisibility(View.VISIBLE);
@@ -128,9 +144,10 @@ public class DialogEditCart extends DialogFragment {
         textViewGmValue = view.findViewById(R.id.text_gm_value);
 
         textViewPcsValue = view.findViewById(R.id.text_pcs_value);
+        textViewTotalQt = view.findViewById(R.id.total_qt);
 
 
-
+        textViewTotalQt.setText("Total Quantity = " + itemkg + "Kg+" +itemgm+ "Gms+" + itempcs + "Pcs");
 
 
         imageButtonPluskg = view.findViewById(R.id.plus_button_kg);
@@ -178,7 +195,10 @@ public class DialogEditCart extends DialogFragment {
             public void onClick(View v) {
                 plusButton(textViewgm,textViewGmValue,pricegmint);
                 totalPriceFun();
+                if (textViewgm.getText().toString().trim().equals("19")){
 
+                    imageButtonPlusgm.setEnabled(false);
+                }
 
             }
         });
@@ -230,39 +250,55 @@ public class DialogEditCart extends DialogFragment {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartMo cartMo = new CartMo();
-                cartMo.setItemName(name);
-                if (Integer.parseInt(textViewtotal.getText().toString().trim()) <= 100) {
-                    cartMo.setDeliveryCharge("0");
-
+                buttonUpdate.setEnabled(false);
+                String kg = textViewkg.getText().toString().trim();
+                String gm = textViewgm.getText().toString().trim();
+                String pcs = textViewpcs.getText().toString().trim();
+                if (kg.equals("0")&&gm.equals("0") && pcs.equals("0")){
+                    Toast.makeText(getContext(), "Add Quantity", Toast.LENGTH_SHORT).show();
+                    buttonUpdate.setEnabled(true);
                 }
+
+//
+
+
                 else {
-                    cartMo.setDeliveryCharge("20");
+
+                    CartMo cartMo = new CartMo();
+                    cartMo.setItemName(name);
+                    if (Integer.parseInt(textViewtotal.getText().toString().trim()) <= 100) {
+                        cartMo.setDeliveryCharge("0");
+
+                    }
+                    else {
+                        cartMo.setDeliveryCharge("20");
+                    }
+                    cartMo.setItemType(itemtype);
+                    cartMo.setItemImage(image);
+                    cartMo.setItemId(itemid);
+                    cartMo.setItemPriceprkg(pricekg);
+                    cartMo.setItemPriceprpcs(pricepcs);
+                    cartMo.setItemPricekg(textViewKgValue.getText().toString().trim());
+                    cartMo.setItemPricegm(textViewGmValue.getText().toString().trim());
+                    cartMo.setItemPricepcs(textViewPcsValue.getText().toString().trim());
+                    cartMo.setItemPricetotal(textViewtotal.getText().toString().trim());
+                    cartMo.setItemQuantitykg(textViewkg.getText().toString().trim());
+                    cartMo.setItemQuantitygm(textViewgm.getText().toString().trim());
+                    cartMo.setItemQuantitypcs(textViewpcs.getText().toString().trim());
+
+                    loading.show(getChildFragmentManager(),"Loading");
+
+                    reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo);
+
+
+                    loading.dismiss();
+
+
+                    Toast.makeText(getContext(), "Item Updated to cart successfully", Toast.LENGTH_SHORT).show();
+
+                    dismiss();
+                    buttonUpdate.setEnabled(true);
                 }
-                cartMo.setItemImage(image);
-                cartMo.setItemId(itemid);
-                cartMo.setItemPriceprkg(pricekg);
-                cartMo.setItemPriceprpcs(pricepcs);
-                cartMo.setItemPricekg(textViewKgValue.getText().toString().trim());
-                cartMo.setItemPricegm(textViewGmValue.getText().toString().trim());
-                cartMo.setItemPricepcs(textViewPcsValue.getText().toString().trim());
-                cartMo.setItemPricetotal(textViewtotal.getText().toString().trim());
-                cartMo.setItemQuantitykg(textViewkg.getText().toString().trim());
-                cartMo.setItemQuantitygm(textViewgm.getText().toString().trim());
-                cartMo.setItemQuantitypcs(textViewpcs.getText().toString().trim());
-                cartMo.setItemType(itemtype);
-
-                dialog.show();
-                reference.child("User").child(user.getPhoneNumber()).child("Carts").child(itemid).setValue(cartMo)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                                dialog.dismiss();
-                            }
-                        });
-
-                getDialog().dismiss();
             }
         });
         return view;
@@ -293,7 +329,7 @@ public class DialogEditCart extends DialogFragment {
         }
     }
 
-    private void minusButton(TextView textViewa,TextView textViewb,int price) {
+    private void minusButton(TextView textViewa,TextView textViewb,float price) {
         String stringVal,str,stringRes;
 
         str  = textViewa.getText().toString().trim();
@@ -301,35 +337,46 @@ public class DialogEditCart extends DialogFragment {
             textViewa.setText("0");
             textViewb.setText("0");
             textViewtotal.setText("0");
+            textViewTotalQt.setText("0");
 
 
         }
         else {
             int prev = Integer.parseInt(str);
             prev--;
-            int res = prev*price;
+            int res = (int) (prev*price);
             stringRes = String.valueOf(res);
             stringVal = String.valueOf(prev);
             textViewa.setText(stringVal);
             textViewb.setText(stringRes);
 
+            int gm = Integer.parseInt(textViewgm.getText().toString().trim());
+            int totalgm  = gm*50;
+            String totalGms = String.valueOf(totalgm);
+
+            textViewTotalQt.setText("Total Quantity = "+textViewkg.getText().toString()+"Kg+"+totalGms+"Gms+"+textViewpcs.getText().toString()+"Pcs");
 
 
 
         }
     }
 
-    private void plusButton(TextView textViewa,TextView textViewb,int price) {
+    private void plusButton(TextView textViewa,TextView textViewb,float price) {
         String stringVal,str,stringRes;
         str = textViewa.getText().toString().trim();
         int prev = Integer.parseInt(str);
         prev++;
 
-        int res = prev*price;
+        int res = (int) (prev*price);
         stringRes = String.valueOf(res);
         stringVal = Integer.toString(prev);
         textViewa.setText(stringVal);
         textViewb.setText(stringRes);
+        int gm = Integer.parseInt(textViewgm.getText().toString().trim());
+        int totalgm  = gm*50;
+        String totalGms = String.valueOf(totalgm);
+
+        textViewTotalQt.setText("Total Quantity = "+textViewkg.getText().toString()+"Kg+"+totalGms+"Gms+"+textViewpcs.getText().toString()+"Pcs");
 
 
     }

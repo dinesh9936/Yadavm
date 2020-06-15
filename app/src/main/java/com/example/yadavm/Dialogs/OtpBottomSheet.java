@@ -70,10 +70,17 @@ public class OtpBottomSheet extends BottomSheetDialogFragment {
              @Override
              public void onClick(View v) {
                  buttonVerify.setEnabled(false);
-                 loading.show(getChildFragmentManager(),"Loading");
                  String code = editTextOtp.getText().toString().trim();
-                 verifyCode(code);
-                 buttonVerify.setEnabled(true);
+                 if (code.isEmpty()){
+                     Toast.makeText(getContext(), "Enter verification code", Toast.LENGTH_SHORT).show();
+                     buttonVerify.setEnabled(true);
+                 }
+                 else {
+                     loading.show(getChildFragmentManager(),"Loading");
+
+                     verifyCode(code);
+                     buttonVerify.setEnabled(true);
+                 }
              }
          });
 

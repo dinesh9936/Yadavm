@@ -62,37 +62,40 @@ public class Ordersfrag extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_ordersfrag, container, false);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        if (isAdded()){
+            Toolbar toolbar = view.findViewById(R.id.toolbar);
+            toolbar.setTitle("");
 
-        loading = new DialogLoading();
+            loading = new DialogLoading();
 
-        ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
+            ((MainActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
+            setHasOptionsMenu(true);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("User").child((user.getPhoneNumber())).child("My Orders");
-
-
-        textViewNothingInOrder = view.findViewById(R.id.text_nothing_in_order);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_order);
-        recyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        orderMos = new ArrayList<>();
+            firebaseAuth = FirebaseAuth.getInstance();
+            user = firebaseAuth.getCurrentUser();
+            database = FirebaseDatabase.getInstance();
+            reference = database.getReference().child("User").child((user.getPhoneNumber())).child("My Orders");
 
 
+            textViewNothingInOrder = view.findViewById(R.id.text_nothing_in_order);
+
+            recyclerView = (RecyclerView) view.findViewById(R.id.recycler_order);
+            recyclerView.setHasFixedSize(true);
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
+            linearLayoutManager.setReverseLayout(true);
+            linearLayoutManager.setStackFromEnd(true);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            orderMos = new ArrayList<>();
 
 
-        readPost();
+
+
+            readPost();
+        }
+
         return view;
     }
     @Override

@@ -36,17 +36,20 @@ Context context;
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+
+
         holder.itemname.setText(list.get(position).getItemName());
         holder.itemprice.setText("₹"+list.get(position).getItemPricetotal());
         if (list.get(position).getItemQuantitykg().equals("0")){
             holder.itemqnty.setText(list.get(position).getItemQuantitypcs()+"Pcs");
         }
         else if (list.get(position).getItemQuantitypcs().equals("0")){
-            holder.itemqnty.setText(list.get(position).getItemQuantitykg()+"Kg"+"+"+list.get(position).getItemQuantitygm()+"00"+"Gm");
+            String gm = String.valueOf(Integer.parseInt(list.get(position).getItemQuantitygm())*50);
+            holder.itemqnty.setText(list.get(position).getItemQuantitykg()+"Kg"+"+"+gm+"Gm");
         }
         else {
-            holder.itemqnty.setText(list.get(position).getItemQuantitykg()+"Kg"+"+"+list.get(position).
-                    getItemQuantitygm()+"00"+"Gm");
+            String gm = String.valueOf(Integer.parseInt(list.get(position).getItemQuantitygm())*50);
+            holder.itemqnty.setText(list.get(position).getItemQuantitykg()+"Kg"+"+"+gm+"Gm"+"+"+list.get(position).getItemQuantitypcs()+"Psc");
 
         }
 

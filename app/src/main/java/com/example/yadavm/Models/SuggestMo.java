@@ -5,8 +5,17 @@ public class SuggestMo {
     private String profile;
     private String name;
     private String timestamp;
+    private String phone;
 
     public SuggestMo() {
+    }
+
+    public SuggestMo(String suggest, String profile, String name, String timestamp, String phone) {
+        this.suggest = suggest;
+        this.profile = profile;
+        this.name = name;
+        this.timestamp = timestamp;
+        this.phone = phone;
     }
 
     public String getSuggest() {
@@ -41,10 +50,11 @@ public class SuggestMo {
         this.timestamp = timestamp;
     }
 
-    public SuggestMo(String suggest, String profile, String name, String timestamp) {
-        this.suggest = suggest;
-        this.profile = profile;
-        this.name = name;
-        this.timestamp = timestamp;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

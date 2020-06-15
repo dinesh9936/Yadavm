@@ -123,15 +123,16 @@ public class OrderAd extends RecyclerView.Adapter<OrderAd.MyViewHolder> {
 
 
         String sts = orderMo.getOrderStatus();
-        if (sts.equals("1")){
+
+         if (sts.equals("0")){
+            holder.imageViewStatus.setImageResource(R.drawable.ic_waiting);
+            holder.textViewStatus.setText("Waiting");
+        }
+       else if (sts.equals("1")){
             holder.imageViewStatus.setImageResource(R.drawable.ic_order_placed);
             holder.textViewStatus.setText("Placed");
             holder.textViewStatus.setTextColor(R.color.colorPrimaryDark);
 
-        }
-        else if (sts.equals("0")){
-            holder.imageViewStatus.setImageResource(R.drawable.ic_waiting);
-            holder.textViewStatus.setText("Waiting");
         }
         else if (sts.equals("2")){
             holder.imageViewStatus.setImageResource(R.drawable.ic_order_delivered);

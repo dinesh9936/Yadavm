@@ -105,9 +105,10 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
 
 
         if (homemodel.getItemType().equals("kg")){
+            String gmqt = String.valueOf((Integer.parseInt(homemodel.getItemQuantitygm())*100)/2);
             holder.linearLayoutPcs.setVisibility(View.GONE);
             holder.textViewKg.setText(homemodel.getItemQuantitykg());
-            holder.textViewGm.setText(homemodel.getItemQuantitygm()+"00");
+            holder.textViewGm.setText(gmqt);
             holder.textViewKgValue.setText(homemodel.getItemPricekg());
             holder.textViewGmValue.setText(homemodel.getItemPricegm());
             holder.textViewTotal.setText("₹"+homemodel.getItemPricetotal());
@@ -121,8 +122,9 @@ public class CartAd extends RecyclerView.Adapter<CartAd.VieHolder>{
         }
 
         else {
+            String gmqt = String.valueOf((Integer.parseInt(homemodel.getItemQuantitygm())*100)/2);
             holder.textViewKg.setText(homemodel.getItemQuantitykg());
-            holder.textViewGm.setText(homemodel.getItemQuantitygm()+"00");
+            holder.textViewGm.setText(gmqt);
             holder.textViewPcs.setText(homemodel.getItemQuantitypcs());
             holder.textViewPcsValue.setText(homemodel.getItemPricepcs());
             holder.textViewTotal.setText("₹"+homemodel.getItemPricetotal());

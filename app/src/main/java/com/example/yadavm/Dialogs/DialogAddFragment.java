@@ -1,6 +1,8 @@
 package com.example.yadavm.Dialogs;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +27,19 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 
+
 public class DialogAddFragment extends DialogFragment {
     private ImageView imageViewItemImage;
 
     public ImageButton imageButtonPluskg, imageButtonPlusgm, imageButtonPluspcs, imageButtonMinuskg, imageButtonMinusgm,imageButtonMinuspcs;
 
-    public  TextView textViewItemName, textViewkg,textViewgm,textViewpcs,textViewKgValue,textViewGmValue,textViewPcsValue,textViewtotal;
+    public  TextView textViewItemName, textViewkg,textViewgm,textViewpcs,textViewKgValue,textViewGmValue,textViewPcsValue,textViewtotal, textViewTotalQt;
 
     public  String name,image,pricekg,pricepcs,itemid,itemtype;
 
     public LinearLayout linearLayoutkg,linearLayoutgm,linearLayoutpcs;
 
-    public int pricekgint,pricegmint,pricepcsint;
+    public int pricekgint,pricepcsint;
 
     public int totalPrice ;
 
@@ -51,6 +54,8 @@ public class DialogAddFragment extends DialogFragment {
     FirebaseAuth firebaseAuth;
 
     FirebaseUser user;
+
+    float pricegmint;
 
     @Nullable
     @Override
@@ -85,7 +90,9 @@ public class DialogAddFragment extends DialogFragment {
 
         pricekgint = Integer.parseInt(pricekg);
 
-        pricegmint = pricekgint/10;
+        float pricekgdouble = (float) (pricekgint/20.0);
+        Log.d("Debug", "onCreateView: "+pricekgdouble);
+       pricegmint = pricekgdouble;
 
         pricepcsint = Integer.parseInt(pricepcs);
 
@@ -112,7 +119,7 @@ public class DialogAddFragment extends DialogFragment {
         textViewKgValue = view.findViewById(R.id.text_kg_value);
         textViewGmValue = view.findViewById(R.id.text_gm_value);
         textViewPcsValue = view.findViewById(R.id.text_pcs_value);
-
+        textViewTotalQt = view.findViewById(R.id.total_qt);
 
         imageButtonPluskg = view.findViewById(R.id.plus_button_kg);
         imageButtonPlusgm = view.findViewById(R.id.plus_button_gm);
@@ -142,11 +149,19 @@ public class DialogAddFragment extends DialogFragment {
 
 
 
+
+
         imageButtonPlusgm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 plusButton(textViewgm,textViewGmValue,pricegmint);
                 totalPriceFun();
+                if (textViewgm.getText().toString().trim().equals("19")){
+
+                    imageButtonPlusgm.setEnabled(false);
+                }
+
+
             }
         });
         imageButtonPluspcs.setOnClickListener(new View.OnClickListener() {
@@ -188,13 +203,14 @@ public class DialogAddFragment extends DialogFragment {
             public void onClick(View v) {
                 buttonAddtocart.setEnabled(false);
                 String kg = textViewkg.getText().toString().trim();
-                String gm = textViewkg.getText().toString().trim();
-                String pcs = textViewkg.getText().toString().trim();
+                String gm = textViewgm.getText().toString().trim();
+                String pcs = textViewpcs.getText().toString().trim();
                 if (kg.equals("0")&&gm.equals("0") && pcs.equals("0")){
                    Toast.makeText(getContext(), "Add Quantity", Toast.LENGTH_SHORT).show();
                    buttonAddtocart.setEnabled(true);
                 }
                else {
+
                    CartMo cartMo = new CartMo();
                    cartMo.setItemName(name);
                    if (Integer.parseInt(textViewtotal.getText().toString().trim()) <= 100) {
@@ -225,6 +241,7 @@ public class DialogAddFragment extends DialogFragment {
                                    loading.dismiss();
 
 
+                    Toast.makeText(getContext(), "Item added to cart successfully", Toast.LENGTH_SHORT).show();
 
                    dismiss();
                    buttonAddtocart.setEnabled(true);
@@ -263,7 +280,7 @@ public class DialogAddFragment extends DialogFragment {
         }
     }
 
-    private void minusButton(TextView textViewa,TextView textViewb,int price) {
+    private void minusButton(TextView textViewa,TextView textViewb,float price) {
         String stringVal,str,stringRes;
 
         str  = textViewa.getText().toString().trim();
@@ -271,35 +288,49 @@ public class DialogAddFragment extends DialogFragment {
             textViewa.setText("0");
             textViewb.setText("0");
             textViewtotal.setText("0");
+            textViewTotalQt.setText("0");
 
 
         }
         else {
             int prev = Integer.parseInt(str);
             prev--;
-            int res = prev*price;
+            int res = (int) Math.ceil(prev*price);
             stringRes = String.valueOf(res);
             stringVal = String.valueOf(prev);
             textViewa.setText(stringVal);
             textViewb.setText(stringRes);
 
+            int gm = Integer.parseInt(textViewgm.getText().toString().trim());
+
+            int totalgm  = gm*50;
+            String totalGms = String.valueOf(totalgm);
+
+            textViewTotalQt.setText("Total Quantity = "+textViewkg.getText().toString()+"Kg+"+totalGms+"Gms+"+textViewpcs.getText().toString()+"Pcs");
 
 
 
         }
     }
 
-    private void plusButton(TextView textViewa,TextView textViewb,int price) {
+    private void plusButton(TextView textViewa,TextView textViewb,float price) {
         String stringVal,str,stringRes;
          str = textViewa.getText().toString().trim();
+
         int prev = Integer.parseInt(str);
         prev++;
 
-        int res = prev*price;
+        int res = (int) Math.ceil(prev*price);
         stringRes = String.valueOf(res);
         stringVal = Integer.toString(prev);
         textViewa.setText(stringVal);
         textViewb.setText(stringRes);
+
+        int gm = Integer.parseInt(textViewgm.getText().toString().trim());
+        int totalgm  = gm*50;
+        String totalGms = String.valueOf(totalgm);
+
+        textViewTotalQt.setText("Total Quantity = "+textViewkg.getText().toString()+"Kg+"+totalGms+"Gms+"+textViewpcs.getText().toString()+"Pcs");
 
 
     }

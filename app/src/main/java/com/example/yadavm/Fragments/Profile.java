@@ -110,14 +110,7 @@ long timestamp;
         editTextSuggestion = view.findViewById(R.id.edit_suggestion);
 
         linearLayout = view.findViewById(R.id.support);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:+919452251055"));
-                startActivity(intent);
-            }
-        });
+
 //        textViewAbout = (TextView)view.findViewById(R.id.about);
 //        textViewAbout.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -183,7 +176,7 @@ long timestamp;
                     Toast.makeText(getActivity(), "Please Write Your Suggest...", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    SuggestMo suggestMo = new SuggestMo(suggestion,image,name,String.valueOf(timestamp));
+                    SuggestMo suggestMo = new SuggestMo(suggestion,image,name,String.valueOf(timestamp),user.getPhoneNumber());
 
                     reference.child("Suggestions").push().setValue(suggestMo);
                     editTextSuggestion.setText(null);

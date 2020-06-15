@@ -20,9 +20,13 @@ public class DialogLoading extends DialogFragment {
 
 
         View view = inflater.inflate(R.layout.progress_dialog_layout, container, false);
-        getDialog().setCanceledOnTouchOutside(false);
 
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.progress_back);
+        if (isAdded()){
+            getDialog().setCanceledOnTouchOutside(false);
+
+            getDialog().getWindow().setBackgroundDrawableResource(R.drawable.progress_back);
+        }
+
 
         return view;
 

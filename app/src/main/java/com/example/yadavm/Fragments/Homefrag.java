@@ -63,41 +63,44 @@ public class Homefrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homefrag, container, false);
 
+        if (isAdded()){
+            loading = new  DialogLoading();
 
-        loading = new  DialogLoading();
+            toolbar = view.findViewById(R.id.toolbar);
+            toolbar.setTitle("");
 
-        toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+            ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+            setHasOptionsMenu(true);
 
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
-
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("Sweets");
-
-
-        //searching_item
-        searchLayout = (LinearLayout)view.findViewById(R.id.searchview_button);
-        searchLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Search.class);
-                startActivity(intent);
-            }
-        });
-        recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_home);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        mHomeList = new ArrayList<>();
-
-        homeadapter = new HomeAd(getContext(),mHomeList);
+            database = FirebaseDatabase.getInstance();
+            reference = database.getReference().child("Sweets");
 
 
-        readPost();
+            //searching_item
+            searchLayout = (LinearLayout)view.findViewById(R.id.searchview_button);
+            searchLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), Search.class);
+                    startActivity(intent);
+                }
+            });
+            recyclerView  = (RecyclerView)view.findViewById(R.id.recycler_home);
+            recyclerView.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+            linearLayoutManager.setReverseLayout(true);
+            linearLayoutManager.setStackFromEnd(true);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            mHomeList = new ArrayList<>();
+
+            homeadapter = new HomeAd(getContext(),mHomeList);
+
+
+            readPost();
+        }
+
+
 
         return view;
     }

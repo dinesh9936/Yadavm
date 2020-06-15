@@ -96,15 +96,27 @@
                 android:layout_height="wrap_content"
                 android:text="Total Rs 430"
                 android:gravity="right"/>
+
             <Button
                 android:id="@+id/button_confirm_plce"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:textColor="#D24C0F"
                 android:text="place order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
                 android:background="@drawable/back_place_button"
+                />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/button_ok"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black"
+                android:text="ok"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_box"
                 />
         </LinearLayout>
     </ScrollView>
